@@ -180,9 +180,7 @@ local function plugins(use)
 	use({
 		"NvChad/nvterm",
 		opt = true,
-		setup = function()
-			vim.cmd("PackerLoad nvterm")
-		end,
+		event = "VimEnter",
 		config = {
 			function()
 				pcall(require, "plugins.configs.nvterm")
@@ -343,18 +341,6 @@ local function plugins(use)
 	use({ "p00f/nvim-ts-rainbow", event = "BufRead" })
 
 	use({
-		"kevinhwang91/nvim-ufo",
-		setup = function()
-			vim.cmd("PackerLoad nvim-ufo")
-		end,
-		-- keys = { "zc", "zo" },
-		requires = "kevinhwang91/promise-async",
-		config = function()
-			require("plugins.configs.others").ufo()
-		end,
-	})
-
-	use({
 		"windwp/nvim-autopairs",
 		event = "BufRead",
 		after = "nvim-cmp",
@@ -390,9 +376,26 @@ local function plugins(use)
 	})
 
 	use({
+		"anuvyklack/pretty-fold.nvim",
+		opt = true,
+		event = "BufReadPre",
+		config = function()
+			require("plugins.configs.others").pretty_fold()
+		end,
+	})
+
+	use({
+		"phaazon/hop.nvim",
+		branch = "v2",
+		cmd = { "HopWord", "HopChar1" },
+		config = function()
+			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+		end,
+	})
+
+	use({
 		"folke/which-key.nvim",
 		opt = true,
-		after = "nvim-treesitter",
 		config = function()
 			require("plugins.configs.which_key").setup()
 		end,

@@ -72,6 +72,13 @@ M.code_runner = {
 	"CRProjects",
 }
 
+M.trouble = {
+	"Trouble",
+	"TroubleClose",
+	"TroubleRefresh",
+	"TroubleToggle",
+}
+
 M.noetest_req = {
 	"nvim-lua/plenary.nvim",
 	"nvim-treesitter/nvim-treesitter",

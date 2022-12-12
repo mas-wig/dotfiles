@@ -20,7 +20,7 @@ local setup = {
 		close_command = "bdelete! %d",
 		enforce_regular_tabs = true,
 		close_icon = "",
-		always_show_bufferline = true,
+		always_show_bufferline = false,
 		offsets = {
 			{
 				filetype = "NvimTree",

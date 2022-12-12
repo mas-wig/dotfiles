@@ -25,49 +25,6 @@ M.colorizer = function()
 	vim.cmd("ColorizerAttachToBuffer")
 end
 
-M.ufo = function()
-	local present, nvim_ufo = pcall(require, "ufo")
-
-	if not present then
-		return
-	end
-
-	local handler = function(virtText, lnum, endLnum, width, truncate)
-		local newVirtText = {}
-		local suffix = (" 🔶 🔷 Fold (%d) "):format(endLnum - lnum)
-		local sufWidth = vim.fn.strdisplaywidth(suffix)
-		local targetWidth = width - sufWidth
-		local curWidth = 0
-		for _, chunk in ipairs(virtText) do
-			local chunkText = chunk[1]
-			local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-			if targetWidth > curWidth + chunkWidth then
-				table.insert(newVirtText, chunk)
-			else
-				chunkText = truncate(chunkText, targetWidth - curWidth)
-				local hlGroup = chunk[2]
-				table.insert(newVirtText, { chunkText, hlGroup })
-				chunkWidth = vim.fn.strdisplaywidth(chunkText)
-				-- str width returned from truncate() may less than 2nd argument, need padding
-				if curWidth + chunkWidth < targetWidth then
-					suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
-				end
-				break
-			end
-			curWidth = curWidth + chunkWidth
-		end
-		table.insert(newVirtText, { suffix, "MoreMsg" })
-		return newVirtText
-	end
-
-	nvim_ufo.setup({
-		fold_virt_text_handler = handler,
-	})
-
-	local bufnr = vim.api.nvim_get_current_buf()
-	require("ufo").setFoldVirtTextHandler(bufnr, handler)
-end
-
 M.autopairs = function()
 	local present_a, autopairs = pcall(require, "nvim-autopairs")
 	local present_b, cmp = pcall(require, "cmp")
@@ -90,6 +47,31 @@ M.autopairs = function()
 	end
 
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+end
+
+M.pretty_fold = function()
+	require("pretty-fold").setup({
+		keep_indentation = false,
+		fill_char = "━",
+		sections = {
+			left = {
+				"━ ",
+				function()
+					return string.rep("🎲", vim.v.foldlevel)
+				end,
+				" ━┫",
+				"content",
+				"┣",
+			},
+			right = {
+				"┫ ",
+				"number_of_folded_lines",
+				": ",
+				"percentage",
+				" ┣━━",
+			},
+		},
+	})
 end
 
 M.iblankline = function()
@@ -174,19 +156,13 @@ M.noices = function()
 			view = "cmdline_popup",
 			opts = {},
 			format = {
-				-- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
-				-- view: (default is cmdline view)
-				-- opts: any options passed to the view
-				-- icon_hl_group: optional hl_group for the icon
-				-- title: set to anything or empty string to hide
 				cmdline = { pattern = "^:", icon = "📌", lang = "vim" },
-				search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
-				search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
+				search_down = { kind = "search", pattern = "^/", icon = "🔎 ", lang = "regex" },
+				search_up = { kind = "search", pattern = "^%?", icon = "🔎 ", lang = "regex" },
 				filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
 				lua = { pattern = "^:%s*lua%s+", icon = "", lang = "lua" },
 				help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
 				input = {}, -- Used by input()
-				-- lua = false, -- to disable a format, set to `false`
 			},
 		},
 		messages = {
@@ -302,6 +278,10 @@ M.noices = function()
 		},
 		throttle = 800 / 2,
 	}
+	vim.cmd([[ 
+		highlight NoiceCmdlinePopupBorder guibg=#1a1b26 guifg=#e60073 gui=nocombine
+		highlight NoiceCmdlinePopupBorderSearch guibg=#1a1b26 guifg=#ace600 gui=nocombine
+		]])
 
 	noices.setup(cfg)
 end

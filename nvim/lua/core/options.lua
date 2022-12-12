@@ -17,9 +17,9 @@ vim.opt.smartindent = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.updatetime = 250
----
--- vim.opt.foldcolumn = "0"
--- vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
+
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 1
 vim.opt.foldenable = true

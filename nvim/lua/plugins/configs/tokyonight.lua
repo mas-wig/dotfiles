@@ -26,6 +26,7 @@ local options = {
 	on_highlights = function(hl, _)
 		hl.WinSeparator = { fg = "#33ffad" }
 		hl.IndentBlanklineContextChar = { fg = "#00cc7a", nocombine = true }
+		hl.Folded = { fg = "#ace600", bg = "#34444c" }
 		hl.NvimTreeIndentMarker = { fg = "#b30077" }
 		hl.NvimTreeWinSeparator = { fg = "#2eb8b8" }
 		hl.TelescopeBorder = {
@@ -45,10 +46,10 @@ local options = {
 			fg = "#111a00",
 		}
 
-		hl.LineNr = { fg = "#ffff1a" }
+		hl.LineNr = { fg = "#ffffff" }
 
 		hl.NavicSeparator = { fg = "#ffff1a", bg = "#263238" }
-		hl.NavicText = { fg = "#ff3385", bg = "#263238" }
+		hl.NavicText = { fg = "#ff3385", bg = "#263238", italic = true }
 		hl.NavicIconsFile = { bg = "#263238" }
 		hl.NavicIconsModule = { bg = "#263238" }
 		hl.NavicIconsNamespace = { bg = "#263238" }

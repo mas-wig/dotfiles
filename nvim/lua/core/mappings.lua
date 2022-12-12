@@ -396,4 +396,9 @@ return {
 			["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", "Trouble loclist" },
 		},
 	},
+	Hop = {
+		n = {
+			["F"] = { "<cmd>HopWord<cr>", "HopWord" },
+		},
+	},
 }
