@@ -324,7 +324,7 @@ local function plugins(use)
 		requires = "ray-x/guihua.lua",
 		ft = { "go" },
 		config = function()
-			pcall(require, "plugins.configs.go")
+			require("plugins.configs.go")
 		end,
 	})
 

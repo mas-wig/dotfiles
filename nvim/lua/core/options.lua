@@ -11,6 +11,11 @@ vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.timeoutlen = 300
 vim.opt.swapfile = false
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.wrap = false
+vim.opt.expandtab = true
 vim.opt.laststatus = 0
 vim.opt.smarttab = true
 vim.opt.smartindent = true
@@ -65,3 +70,7 @@ vim.api.nvim_create_autocmd("VimLeave", {
 vim.api.nvim_create_autocmd("VimLeave", {
 	command = ":wall",
 })
+
+vim.g.db_ui_use_nerd_fonts = 1
+vim.g.navic_silence = true
+vim.g.db_ui_save_location = "~/.config/nvim/db"

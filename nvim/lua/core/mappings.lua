@@ -3,6 +3,14 @@ local function termcodes(str)
 end
 
 return {
+	generan = {
+		n = {
+			["<C-s>"] = { "<cmd>:w<CR>", "Save File" },
+		},
+		i = {
+			["<C-s>"] = { "<cmd>:w<CR>", "Save File" },
+		},
+	},
 	telescope = {
 		n = {
 			["<leader>ff"] = { "<cmd>Telescope find_files<CR>", "find files" },
@@ -399,6 +407,218 @@ return {
 	Hop = {
 		n = {
 			["F"] = { "<cmd>HopWord<cr>", "HopWord" },
+		},
+	},
+	navigator = {
+		n = {
+			["K"] = {
+				function()
+					vim.lsp.buf.hover()
+				end,
+				"Hover Docs",
+			},
+			["gr"] = {
+				function()
+					require("navigator.reference").async_ref()
+				end,
+				"Async Reference",
+			},
+			["<leader>gr"] = {
+				function()
+					require("navigator.reference").reference()
+				end,
+				"Reference",
+			},
+			["g0"] = {
+				function()
+					require("navigator.symbols").document_symbols()
+				end,
+				"Document Symbols",
+			},
+			["gW"] = {
+				function()
+					require("navigator.workspace").workspace_symbol_live()
+				end,
+				"Workspace symbol live",
+			},
+			-- ["<c-]>"] = {
+			-- 	function()
+			-- 		require("navigator.definition").definition()
+			-- 	end,
+			-- 	"Definition",
+			-- },
+			["gd"] = {
+				function()
+					require("navigator.definition").definition()
+				end,
+				"Definition",
+			},
+			["gD"] = {
+				function()
+					vim.lsp.buf.declaration()
+				end,
+				"declaration",
+			},
+			["gp"] = {
+				function()
+					require("navigator.definition").definition_preview()
+				end,
+				"Definition Preview",
+			},
+			["<leader>gt"] = {
+				function()
+					require("navigator.treesitter").buf_ts()
+				end,
+				"Buffer ts",
+			},
+			["<leader>gT"] = {
+				function()
+					require("navigator.treesitter").bufs_ts()
+				end,
+				"Buffers ts",
+			},
+			["<leader>ct"] = {
+				function()
+					require("navigator.ctags").ctags()
+				end,
+				"ctags",
+			},
+			["<leader>ca"] = {
+				function()
+					require("navigator.codeAction").code_action()
+				end,
+				"Code Action",
+			},
+			["<Space>rn"] = {
+				function()
+					require("navigator.rename").rename()
+				end,
+				"rename",
+			},
+			["<Leader>gi"] = {
+				function()
+					vim.lsp.buf.incoming_calls()
+				end,
+				"incoming_calls",
+			},
+			["<Leader>go"] = {
+				function()
+					vim.lsp.buf.outgoing_calls()
+				end,
+				"outgoing_calls",
+			},
+			["gi"] = {
+				function()
+					vim.lsp.buf.implementation()
+				end,
+				"implementation",
+			},
+			["<leader>D"] = {
+				function()
+					vim.lsp.buf.type_definition()
+				end,
+				"type_definition",
+			},
+			["gL"] = {
+				function()
+					require("navigator.diagnostics").show_diagnostics()
+				end,
+				"show_diagnostics",
+			},
+			["gG"] = {
+				function()
+					require("navigator.diagnostics").show_buf_diagnostics()
+				end,
+				"show_buf_diagnostics",
+			},
+			["<Leader>dt"] = {
+				function()
+					require("navigator.diagnostics").toggle_diagnostics()
+				end,
+				"toggle_diagnostics",
+			},
+			["]d"] = {
+				function()
+					vim.diagnostic.goto_next()
+				end,
+				"next diagnostics",
+			},
+			["[d"] = {
+				function()
+					vim.diagnostic.goto_prev()
+				end,
+				"prev diagnostics",
+			},
+			["]O"] = {
+				function()
+					vim.diagnostic.set_loclist()
+				end,
+				"diagnostics set loclist",
+			},
+			["]r"] = {
+				function()
+					require("navigator.treesitter").goto_next_usage()
+				end,
+				"goto_next_usage",
+			},
+			["[r"] = {
+				function()
+					require("navigator.treesitter").goto_previous_usage()
+				end,
+				"goto_previous_usage",
+			},
+			["<C-LeftMouse>"] = {
+				function()
+					vim.lsp.buf.definition()
+				end,
+				"definition",
+			},
+			["g<LeftMouse>"] = {
+				function()
+					vim.lsp.buf.implementation()
+				end,
+				"implementation",
+			},
+			["<Leader>k"] = {
+				function()
+					require("navigator.dochighlight").hi_symbol()
+				end,
+				"hi_symbol",
+			},
+			["<leader>wa"] = {
+				function()
+					require("navigator.workleader").add_workleader_folder()
+				end,
+				"add_workleader_folder",
+			},
+			["<Space>wl"] = {
+				function()
+					require("navigator.workspace").list_workspace_folders()
+				end,
+				"list_workspace_folders",
+			},
+			["<Space>la"] = {
+				function()
+					require("navigator.codelens").run_action()
+				end,
+				"run code lens action",
+			},
+		},
+		i = {
+			["<C-k>"] = {
+				function()
+					vim.lsp.buf.signature_help()
+				end,
+				"Signature Help",
+			},
+		},
+		v = {
+			["<leader>ca"] = {
+				function()
+					require("navigator.codeAction").range_code_action()
+				end,
+				"Range Code Actions",
+			},
 		},
 	},
 }

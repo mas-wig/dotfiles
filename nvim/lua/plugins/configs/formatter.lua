@@ -24,15 +24,15 @@ local options = {
 				}
 			end,
 		},
-		-- ["go"] = {
-		-- 	function()
-		-- 		return {
-		-- 			exe = "gofmt",
-		-- 			args = {},
-		-- 			stdin = true,
-		-- 		}
-		-- 	end,
-		-- },
+		["go"] = {
+			function()
+				return {
+					exe = "gofmt",
+					args = { "|", "goimports" },
+					stdin = true,
+				}
+			end,
+		},
 
 		["javascript"] = {
 			function()

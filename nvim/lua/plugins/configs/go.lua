@@ -1,7 +1,6 @@
-local present_a, go = pcall(require, "go")
-local present, navic = pcall(require, "nvim-navic")
+local present, go = pcall(require, "go")
 
-if not present and present_a then
+if not present then
 	return
 end
 
@@ -22,9 +21,7 @@ local opt = {
 	lsp_cfg = true,
 	lsp_gofumpt = false,
 	lsp_on_attach = function(client, bufnr)
-		if client.server_capabilities.documentSymbolProvider then
-			navic.attach(client, bufnr)
-		end
+		require("nvim-navic").attach(client, bufnr)
 	end,
 	lsp_keymaps = false,
 	lsp_codelens = true,
@@ -33,7 +30,7 @@ local opt = {
 	lsp_diag_virtual_text = { space = 0, prefix = "" },
 	lsp_diag_signs = true,
 	lsp_diag_update_in_insert = true,
-	lsp_document_formatting = true,
+	lsp_document_formatting = false,
 	lsp_inlay_hints = {
 		enable = true,
 		only_current_line = false,
@@ -63,16 +60,7 @@ local opt = {
 	run_in_floaterm = false,
 	trouble = false,
 	test_efm = false,
-	luasnip = true,
+	luasnip = false,
 }
-
-local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.go",
-	callback = function()
-		require("go.format").goimport()
-	end,
-	group = format_sync_grp,
-})
 
 go.setup(opt)

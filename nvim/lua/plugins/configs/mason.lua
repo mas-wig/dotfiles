@@ -11,7 +11,6 @@ local options = {
 		"css-lsp",
 		"gopls",
 		"rust-analyzer",
-		"sqls",
 		"intelephense",
 		"typescript-language-server",
 		"pyright",

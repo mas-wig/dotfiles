@@ -1,7 +1,6 @@
-local present_b, navigator = pcall(require, "navigator")
-local present_a, navic = pcall(require, "nvim-navic")
+local present, navigator = pcall(require, "navigator")
 
-if not (present_a and present_b) then
+if not present then
 	return
 end
 
@@ -35,19 +34,11 @@ end
 local opt = {
 	mason = true,
 	border = "rounded",--[[  { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }, ]]
-	keymaps = {
-		{ key = "<A-f>", func = vim.lsp.buf.format, mode = "n", desc = "format" },
-		{ key = "<A-f>", func = vim.lsp.buf.range_formatting, mode = "v", desc = "range format" },
-		{
-			key = "<Leader>dm",
-			func = require("navigator.diagnostics").toggle_diagnostics,
-			desc = "Nv Toggle Diagnostics",
-		},
-	},
+	default_mapping = false,
 	ts_fold = false,
 	on_attach = function(client, bufnr)
 		if client.server_capabilities.documentSymbolProvider then
-			navic.attach(client, bufnr)
+			require("nvim-navic").attach(client, bufnr)
 		end
 	end,
 
@@ -56,47 +47,47 @@ local opt = {
 		format_on_save = false,
 		diagnostic_update_in_insert = true,
 		disply_diagnostic_qf = false,
-		lsp_signature_help = true,
+		lsp_signature_help = nil,
+		signature_help_cfg = nil,
 		code_action = { enable = true, sign = true, sign_priority = 40, virtual_text = true },
 		code_lens_action = { enable = true, sign = true, sign_priority = 40, virtual_text = true },
 		document_highlight = true,
-		disable_lsp = {},
-		intelephense = {
-			capabilities = M.capabilities,
-			single_file_support = true,
+		disable_lsp = {
+			"angularls",
+			"flow",
+			"bashls",
+			"dockerls",
+			"julials",
+			"pylsp",
+			"jedi_language_server",
+			"jdtls",
+			"vimls",
+			"solargraph",
+			"yamlls",
+			"ccls",
+			"denols",
+			"graphql",
+			"dotls",
+			"kotlin_language_server",
+			"nimls",
+			"vuels",
+			"phpactor",
+			"omnisharp",
+			"r_language_server",
+			"terraformls",
+			"svelte",
+			"texlab",
+			"clojure_lsp",
+			"elixirls",
+			"sourcekit",
+			"fsautocomplete",
+			"vls",
+			"hls",
 		},
-		sqls = {
-			capabilities = M.capabilities,
-			single_file_support = true,
-		},
-		sumneko_lua = {
-			capabilities = M.capabilities,
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" },
-					},
-					workspace = {
-						library = {
-							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-							[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-						},
-						maxPreload = 100000,
-						preloadFileSize = 10000,
-					},
-				},
-			},
-		},
-		cssls = {
-			capabilities = M.capabilities,
-			cmd = { "vscode-css-language-server", "--stdio" },
-			single_file_support = true,
-		},
-		html = {
-			capabilities = M.capabilities,
-			cmd = { "vscode-html-language-server", "--stdio" },
-			single_file_support = true,
-		},
+		intelephense = { capabilities = M.capabilities, single_file_support = true },
+		sumneko_lua = { capabilities = M.capabilities, single_file_support = true },
+		cssls = { capabilities = M.capabilities, single_file_support = true },
+		html = { capabilities = M.capabilities, single_file_support = true },
 		tsserver = { capabilities = M.capabilities, single_file_support = true },
 		rust_analyzer = { capabilities = M.capabilities, single_file_support = true },
 		clangd = { capabilities = M.capabilities, single_file_support = true },
