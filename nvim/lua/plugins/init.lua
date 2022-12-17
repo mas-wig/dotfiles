@@ -1,6 +1,3 @@
-local packer = require("core.utils")
-local command = require("plugins.plugins_command")
-
 local config = {
 	profile = {
 		enable = true,
@@ -15,12 +12,18 @@ local config = {
 
 local function plugins(use)
 	use({ "lewis6991/impatient.nvim" })
+
 	use({ "nathom/filetype.nvim" })
+
 	use({ "wbthomason/packer.nvim", opt = true })
 
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = command.telescope_req,
+		requires = {
+			"nvim-lua/popup.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-media-files.nvim",
+		},
 		cmd = "Telescope",
 		config = function()
 			require("plugins.configs.telescope")
@@ -94,7 +97,14 @@ local function plugins(use)
 
 	use({
 		"williamboman/mason.nvim",
-		cmd = command.mason,
+		cmd = {
+			"Mason",
+			"MasonInstall",
+			"MasonInstallAll",
+			"MasonUninstall",
+			"MasonUninstallAll",
+			"MasonLog",
+		},
 		config = function()
 			pcall(require, "plugins.configs.mason")
 		end,
@@ -114,7 +124,14 @@ local function plugins(use)
 
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		cmd = command.treesitter,
+		cmd = {
+			"TSInstall",
+			"TSBufEnable",
+			"TSBufDisable",
+			"TSEnable",
+			"TSDisable",
+			"TSModuleInfo",
+		},
 		module = "nvim-treesitter",
 		setup = function()
 			require("core.utils").on_file_open("nvim-treesitter")
@@ -213,7 +230,7 @@ local function plugins(use)
 	use({
 		"CRAG666/code_runner.nvim",
 		opt = true,
-		cmd = command.code_runner,
+		cmd = { "RunCode", "RunFile", "RunProject", "RunClose", "CRFiletype", "CRProjects" },
 		requires = "nvim-lua/plenary.nvim",
 		config = function()
 			pcall(require, "plugins.configs.code_runner")
@@ -264,10 +281,25 @@ local function plugins(use)
 	use({
 		"nvim-neotest/neotest",
 		opt = true,
-		requires = command.noetest_req,
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-neotest/neotest-go",
+			"haydenmeade/neotest-jest",
+			"nvim-neotest/neotest-python",
+		},
 		module = { "neotest", "neotest.async" },
-		wants = command.neotest_want,
-		cmd = command.neotest,
+		wants = {
+			"plenary.nvim",
+			"nvim-treesitter",
+			"FixCursorHold.nvim",
+			"neotest-go",
+			"neotest-jest",
+			"overseer.nvim",
+			"neotest-python",
+		},
+		cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" },
 		config = function()
 			require("plugins.configs.neotest")
 		end,
@@ -276,7 +308,19 @@ local function plugins(use)
 	use({
 		"stevearc/overseer.nvim",
 		opt = true,
-		cmd = command.overseer,
+		cmd = {
+			"OverseerToggle",
+			"OverseerOpen",
+			"OverseerRun",
+			"OverseerBuild",
+			"OverseerClose",
+			"OverseerLoadBundle",
+			"OverseerSaveBundle",
+			"OverseerDeleteBundle",
+			"OverseerRunCmd",
+			"OverseerQuickAction",
+			"OverseerTaskAction",
+		},
 		config = function()
 			pcall(require, "plugins.configs.overseer")
 		end,
@@ -285,7 +329,22 @@ local function plugins(use)
 	use({
 		"akinsho/flutter-tools.nvim",
 		requires = "nvim-lua/plenary.nvim",
-		cmd = command.flutter,
+		cmd = {
+			"FlutterRun",
+			"FlutterDevices",
+			"FlutterEmulators",
+			"FlutterReload",
+			"FlutterRestart",
+			"FlutterQuit",
+			"FlutterDetach",
+			"FlutterOutlineToggle",
+			"FlutterOutlineOpen",
+			"FlutterDevTools",
+			"FlutterCopyProfilerUrl",
+			"FlutterLspRestart",
+			"FlutterSuper",
+			"FlutterReanalyze",
+		},
 		config = function()
 			pcall(require, "plugins.configs.main.flutter")
 		end,
@@ -294,7 +353,7 @@ local function plugins(use)
 	use({
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
-		cmd = { "TroubleToggle" },
+		cmd = { "Trouble", "TroubleClose", "TroubleRefresh", "TroubleToggle" },
 		config = function()
 			require("plugins.configs.others").trouble()
 		end,
@@ -315,8 +374,15 @@ local function plugins(use)
 	use({
 		"tpope/vim-dadbod",
 		opt = true,
-		requires = command.dbui_req,
-		cmd = command.dbui,
+		requires = { "kristijanhusak/vim-dadbod-ui" },
+		cmd = {
+			"DBUI",
+			"DBUIAddConnection",
+			"DBUIFindBuffer",
+			"DBUILastQueryInfo",
+			"DBUIToggle",
+			"DBUIRenameBuffer",
+		},
 	})
 
 	use({
@@ -402,4 +468,4 @@ local function plugins(use)
 	})
 end
 
-return packer.setup(config, plugins)
+return require("core.utils").setup(config, plugins)
