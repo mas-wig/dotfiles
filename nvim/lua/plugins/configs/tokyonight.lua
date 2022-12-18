@@ -6,10 +6,9 @@ end
 
 local options = {
 	style = "night",
-	transparent = false,
+	transparent = true,
 	terminal_colors = true,
 	styles = {
-
 		comments = { italic = true },
 		keywords = { italic = true },
 		functions = { italic = true },
@@ -46,37 +45,41 @@ local options = {
 			fg = "#111a00",
 		}
 
+		hl.TelescopeNormal = {
+			bg = "",
+		}
+
 		hl.LineNr = { fg = "#ffffff" }
 
-		hl.NavicSeparator = { fg = "#ffff1a", bg = "#263238" }
-		hl.NavicText = { fg = "#ff3385", bg = "#263238", italic = true }
-		hl.NavicIconsFile = { bg = "#263238" }
-		hl.NavicIconsModule = { bg = "#263238" }
-		hl.NavicIconsNamespace = { bg = "#263238" }
-		hl.NavicIconsPackage = { bg = "#263238" }
-		hl.NavicIconsClass = { bg = "#263238" }
-		hl.NavicIconsMethod = { bg = "#263238" }
-		hl.NavicIconsProperty = { bg = "#263238" }
-		hl.NavicIconsField = { bg = "#263238" }
-		hl.NavicIconsConstructor = { bg = "#263238" }
-		hl.NavicIconsEnum = { bg = "#263238" }
-		hl.NavicIconsInterface = { bg = "#263238" }
-		hl.NavicIconsFunction = { bg = "#263238" }
-		hl.NavicIconsVariable = { bg = "#263238" }
-		hl.NavicIconsConstant = { bg = "#263238" }
-		hl.NavicIconsString = { bg = "#263238" }
-		hl.NavicIconsNumber = { bg = "#263238" }
-		hl.NavicIconsBoolean = { bg = "#263238" }
-		hl.NavicIconsArray = { bg = "#263238" }
-		hl.NavicIconsObject = { bg = "#263238" }
-		hl.NavicIconsKey = { bg = "#263238" }
-		hl.NavicIconsKeyword = { bg = "#263238" }
-		hl.NavicIconsNull = { bg = "#263238" }
-		hl.NavicIconsEnumMember = { bg = "#263238" }
-		hl.NavicIconsStruct = { bg = "#263238" }
-		hl.NavicIconsEvent = { bg = "#263238" }
-		hl.NavicIconsOperator = { bg = "#263238" }
-		hl.NavicIconsTypeParameter = { bg = "#263238" }
+		hl.NavicSeparator = { fg = "#ffff1a", bg = "" }
+		hl.NavicText = { fg = "#ff3385", bg = "", italic = false }
+		hl.NavicIconsFile = { bg = "" }
+		hl.NavicIconsModule = { bg = "" }
+		hl.NavicIconsNamespace = { bg = "" }
+		hl.NavicIconsPackage = { bg = "" }
+		hl.NavicIconsClass = { bg = "" }
+		hl.NavicIconsMethod = { bg = "" }
+		hl.NavicIconsProperty = { bg = "" }
+		hl.NavicIconsField = { bg = "" }
+		hl.NavicIconsConstructor = { bg = "" }
+		hl.NavicIconsEnum = { bg = "" }
+		hl.NavicIconsInterface = { bg = "" }
+		hl.NavicIconsFunction = { bg = "" }
+		hl.NavicIconsVariable = { bg = "" }
+		hl.NavicIconsConstant = { bg = "" }
+		hl.NavicIconsString = { bg = "" }
+		hl.NavicIconsNumber = { bg = "" }
+		hl.NavicIconsBoolean = { bg = "" }
+		hl.NavicIconsArray = { bg = "" }
+		hl.NavicIconsObject = { bg = "" }
+		hl.NavicIconsKey = { bg = "" }
+		hl.NavicIconsKeyword = { bg = "" }
+		hl.NavicIconsNull = { bg = "" }
+		hl.NavicIconsEnumMember = { bg = "" }
+		hl.NavicIconsStruct = { bg = "" }
+		hl.NavicIconsEvent = { bg = "" }
+		hl.NavicIconsOperator = { bg = "" }
+		hl.NavicIconsTypeParameter = { bg = "" }
 	end,
 }
 

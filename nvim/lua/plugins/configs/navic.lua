@@ -42,7 +42,7 @@ M.setup = function()
 		depth_limit_indicator = "…",
 		safe_output = true,
 	})
-	vim.cmd([[highlight WinBar guibg=#263238]])
+	-- vim.cmd([[highlight WinBar guibg=#263238]])
 	vim.api.nvim_create_autocmd(
 		{ "WinScrolled", "BufWinEnter", "CursorMoved", "InsertLeave", "BufWritePost", "TextChanged", "TextChangedI" },
 		{

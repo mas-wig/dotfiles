@@ -279,9 +279,13 @@ M.noices = function()
 		throttle = 800 / 2,
 	}
 	vim.cmd([[ 
-		highlight NoiceCmdlinePopupBorder guibg=#1a1b26 guifg=#e60073 gui=nocombine
-		highlight NoiceCmdlinePopupBorderSearch guibg=#1a1b26 guifg=#ace600 gui=nocombine
+		highlight NoiceCmdlinePopupBorder guifg=#e60073 gui=nocombine
+		highlight NoiceCmdlinePopupBorderSearch guifg=#ace600 gui=nocombine
 		]])
+
+	require("notify").setup({
+		background_colour = "#000000",
+	})
 
 	noices.setup(cfg)
 end

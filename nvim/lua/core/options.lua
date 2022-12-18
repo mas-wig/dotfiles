@@ -71,6 +71,8 @@ vim.api.nvim_create_autocmd("VimLeave", {
 	command = ":wall",
 })
 
+vim.cmd("hi Normal ctermbg=NONE")
+
 vim.g.db_ui_use_nerd_fonts = 1
 vim.g.navic_silence = true
 vim.g.db_ui_save_location = "~/.config/nvim/db"

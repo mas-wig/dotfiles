@@ -7,7 +7,7 @@ end
 local setup = {
 	options = {
 		mode = "buffers", -- ganti buffers ato tabs klo mau
-		separator_style = "slant",
+		separator_style = "thick", --"slant",
 		themable = true,
 		color_icons = true,
 		left_trunc_marker = "🌎",
@@ -20,7 +20,7 @@ local setup = {
 		close_command = "bdelete! %d",
 		enforce_regular_tabs = true,
 		close_icon = "",
-		always_show_bufferline = false,
+		always_show_bufferline = true,
 		offsets = {
 			{
 				filetype = "NvimTree",
@@ -28,6 +28,29 @@ local setup = {
 				highlight = "Directory",
 				separator = true,
 			},
+		},
+		hover = {
+			enabled = true,
+			delay = 200,
+			reveal = { "close" },
+		},
+		indicator = {
+			icon = "▎",
+			style = "none",
+		},
+	},
+
+	highlights = {
+		separator = {
+			fg = "#a6ff4d",
+		},
+		close_button_selected = {
+			fg = "#ff3333",
+		},
+		buffer_selected = {
+			fg = "#ff66ff",
+			bold = true,
+			italic = true,
 		},
 	},
 }
