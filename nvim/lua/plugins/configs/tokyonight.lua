@@ -4,9 +4,20 @@ if not present then
 	return
 end
 
-local options = {
+local config = require("tokyonight.config")
+local colors = require("tokyonight.colors")
+
+local options = config.options
+local theme = {
+	config = options,
+	colors = colors.setup(),
+}
+
+local c = theme.colors
+
+local cfg = {
 	style = "night",
-	transparent = true,
+	transparent = false,
 	terminal_colors = true,
 	styles = {
 		comments = { italic = true },
@@ -22,36 +33,30 @@ local options = {
 	dim_inactive = true,
 	lualine_bold = false,
 
+	-- on_colors = function(colors) end,
+
 	on_highlights = function(hl, _)
+		-- hl["@field"] = { fg = "#ace600" }
 		hl.WinSeparator = { fg = "#33ffad" }
 		hl.IndentBlanklineContextChar = { fg = "#00cc7a", nocombine = true }
 		hl.Folded = { fg = "#ace600", bg = "#34444c" }
 		hl.NvimTreeIndentMarker = { fg = "#b30077" }
 		hl.NvimTreeWinSeparator = { fg = "#2eb8b8" }
+
 		hl.TelescopeBorder = {
-			fg = "#99e600",
-			-- bg = "#1a1b26",
-		}
-		hl.TelescopePromptTitle = {
-			bg = "#ff1a1a",
-			fg = "#111a00",
-		}
-		hl.TelescopePreviewTitle = {
-			bg = "#1affff",
-			fg = "#111a00",
-		}
-		hl.TelescopeResultsTitle = {
-			bg = "#ff33ff",
-			fg = "#111a00",
+			fg = "#99e600", -- bg = "#1a1b26",
 		}
 
-		hl.TelescopeNormal = {
-			bg = "",
-		}
+		hl.NormalFloat = { fg = c.fg_float, bg = "" } -- Normal text in floating windows.
+		hl.FloatBorder = { fg = c.border_highlight, bg = "" }
 
-		hl.LineNr = { fg = "#ffffff" }
+		hl.TelescopePromptTitle = { bg = "#ff1a1a", fg = "#111a00" }
+		hl.TelescopePreviewTitle = { bg = "#1affff", fg = "#111a00" }
+		hl.TelescopeResultsTitle = { bg = "#ff33ff", fg = "#111a00" }
+		hl.TelescopeNormal = { bg = "" }
+		hl.LineNr = { fg = "#ffffff" } -- Line Nummber
 
-		hl.NavicSeparator = { fg = "#ffff1a", bg = "" }
+		hl.NavicSeparator = { fg = "#1affd1", bg = "" }
 		hl.NavicText = { fg = "#ff3385", bg = "", italic = false }
 		hl.NavicIconsFile = { bg = "" }
 		hl.NavicIconsModule = { bg = "" }
@@ -83,5 +88,5 @@ local options = {
 	end,
 }
 
-tokyonight.setup(options)
+tokyonight.setup(cfg)
 vim.cmd([[colorscheme tokyonight]])

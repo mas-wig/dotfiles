@@ -7,7 +7,7 @@ end
 local setup = {
 	options = {
 		mode = "buffers", -- ganti buffers ato tabs klo mau
-		separator_style = "thick", --"slant",
+		separator_style = { " ", " " }, --"slant",
 		themable = true,
 		color_icons = true,
 		left_trunc_marker = "🌎",
@@ -15,8 +15,8 @@ local setup = {
 		show_buffer_icons = true,
 		show_buffer_close_icons = true,
 		show_tab_indicators = true,
-		buffer_close_icon = " ",
-		modified_icon = "✏️",
+		buffer_close_icon = "ﱣ",
+		modified_icon = "ﱣ",
 		close_command = "bdelete! %d",
 		enforce_regular_tabs = true,
 		close_icon = "",
@@ -42,13 +42,13 @@ local setup = {
 
 	highlights = {
 		separator = {
-			fg = "#a6ff4d",
+			fg = "#e6e600",
 		},
 		close_button_selected = {
 			fg = "#ff3333",
 		},
 		buffer_selected = {
-			fg = "#ff66ff",
+			fg = "#ccffff",
 			bold = true,
 			italic = true,
 		},

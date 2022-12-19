@@ -45,20 +45,6 @@ M.cmpconfig = function()
 	}
 
 	local options = {
-		sorting = {
-			priority_weight = 2,
-			comparators = {
-				-- require("cmp_tabnine.compare"),
-				compare.offset,
-				compare.recently_used,
-				compare.exact,
-				compare.score,
-				compare.kind,
-				compare.sort_text,
-				compare.length,
-				compare.order,
-			},
-		},
 		preselect = cmp.PreselectMode.None,
 		sources = {
 			{ name = "cmp_tabnine" },
@@ -144,6 +130,7 @@ M.cmpconfig = function()
 		},
 	}
 	vim.cmd([[highlight! PmenuSel guibg=#a22a7a]])
+
 	return cmp.setup(options)
 end
 

@@ -22,7 +22,6 @@ local options = {
 			package_installed = " ",
 			package_uninstalled = "✨ ",
 		},
-
 		keymaps = {
 			toggle_server_expand = "<CR>",
 			install_server = "i",
@@ -34,7 +33,6 @@ local options = {
 			cancel_installation = "<C-c>",
 		},
 	},
-
 	max_concurrent_installers = 10,
 }
 
