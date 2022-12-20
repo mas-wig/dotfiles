@@ -17,7 +17,7 @@ local c = theme.colors
 
 local cfg = {
 	style = "night",
-	transparent = false,
+	transparent = true,
 	terminal_colors = true,
 	styles = {
 		comments = { italic = true },
@@ -47,7 +47,7 @@ local cfg = {
 			fg = "#99e600", -- bg = "#1a1b26",
 		}
 
-		hl.NormalFloat = { fg = c.fg_float, bg = "" } -- Normal text in floating windows.
+		hl.NormalFloat = { fg = c.fg_float, bg = "" }
 		hl.FloatBorder = { fg = c.border_highlight, bg = "" }
 
 		hl.TelescopePromptTitle = { bg = "#ff1a1a", fg = "#111a00" }

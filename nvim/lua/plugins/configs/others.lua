@@ -218,7 +218,7 @@ M.noices = function()
 			},
 		},
 		notify = {
-			enabled = false,
+			enabled = true,
 			view = "notify",
 		},
 		lsp = {
@@ -285,6 +285,7 @@ M.noices = function()
 
 	require("notify").setup({
 		background_colour = "#000000",
+        timeout = 3000
 	})
 
 	noices.setup(cfg)

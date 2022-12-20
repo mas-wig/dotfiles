@@ -25,10 +25,13 @@ vim.opt.updatetime = 250
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 1
+vim.opt.foldcolumn = "0"
+vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
+vim.cmd("set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1")
 
+vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 vim.o.showtabline = 5
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
