@@ -195,17 +195,6 @@ local function plugins(use)
 	})
 
 	use({
-		"NvChad/nvterm",
-		opt = true,
-		event = "VimEnter",
-		config = {
-			function()
-				pcall(require, "plugins.configs.nvterm")
-			end,
-		},
-	})
-
-	use({
 		"kyazdani42/nvim-tree.lua",
 		cmd = { "NvimTreeToggle", "NvimTreeFocus" },
 		requires = {
@@ -296,33 +285,11 @@ local function plugins(use)
 			"FixCursorHold.nvim",
 			"neotest-go",
 			"neotest-jest",
-			"overseer.nvim",
 			"neotest-python",
 		},
 		cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" },
 		config = function()
 			require("plugins.configs.neotest")
-		end,
-	})
-
-	use({
-		"stevearc/overseer.nvim",
-		opt = true,
-		cmd = {
-			"OverseerToggle",
-			"OverseerOpen",
-			"OverseerRun",
-			"OverseerBuild",
-			"OverseerClose",
-			"OverseerLoadBundle",
-			"OverseerSaveBundle",
-			"OverseerDeleteBundle",
-			"OverseerRunCmd",
-			"OverseerQuickAction",
-			"OverseerTaskAction",
-		},
-		config = function()
-			pcall(require, "plugins.configs.overseer")
 		end,
 	})
 
@@ -456,6 +423,15 @@ local function plugins(use)
 		cmd = { "HopWord", "HopChar1" },
 		config = function()
 			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+		end,
+	})
+
+	use({
+		"akinsho/toggleterm.nvim",
+		cmd = "ToggleTerm",
+		tag = "*",
+		config = function()
+			require("plugins.configs.toggleterm")
 		end,
 	})
 

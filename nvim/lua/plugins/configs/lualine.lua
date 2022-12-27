@@ -60,6 +60,7 @@ local setup = {
 		disabled_filetypes = {
 			"packer",
 			"NvimTree",
+			"toggleterm",
 		},
 		always_divide_middle = true,
 		ignore_focus = { "terminal" },

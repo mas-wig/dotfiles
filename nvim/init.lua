@@ -1,3 +1,9 @@
+vim.cmd([[
+  syntax off
+  filetype off
+  filetype plugin indent off
+]])
+
 vim.g.did_load_filetypes = 1
 vim.opt.shadafile = "NONE"
 vim.g.loaded_gzip = false
@@ -15,10 +21,14 @@ require("core.options")
 
 vim.defer_fn(function()
 	vim.opt.shadafile = ""
+
 	vim.cmd([[
-	    rshada!
-	    doautocmd BufRead
-	  ]])
+    rshada!
+    doautocmd BufRead
+    syntax on
+    filetype on
+    filetype plugin indent on
+    ]])
 
 	vim.defer_fn(function()
 		vim.cmd([[
@@ -30,4 +40,3 @@ vim.defer_fn(function()
 end, 0)
 
 require("plugins")
-

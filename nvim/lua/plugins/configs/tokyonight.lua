@@ -42,13 +42,14 @@ local cfg = {
 		hl.Folded = { fg = "#ace600", bg = "#34444c" }
 		hl.NvimTreeIndentMarker = { fg = "#b30077" }
 		hl.NvimTreeWinSeparator = { fg = "#2eb8b8" }
+		hl.NvimTreeNormal = { fg = c.fg_sidebar, bg = "none" }
 
 		hl.TelescopeBorder = {
 			fg = "#99e600", -- bg = "#1a1b26",
 		}
 
-		hl.NormalFloat = { fg = c.fg_float, bg = "" }
-		hl.FloatBorder = { fg = c.border_highlight, bg = "" }
+		hl.NormalFloat = { fg = c.fg_float, bg = "none" }
+		hl.FloatBorder = { fg = c.border_highlight, bg = "none" }
 
 		hl.TelescopePromptTitle = { bg = "#ff1a1a", fg = "#111a00" }
 		hl.TelescopePreviewTitle = { bg = "#1affff", fg = "#111a00" }

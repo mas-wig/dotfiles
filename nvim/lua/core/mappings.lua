@@ -1,9 +1,5 @@
-local function termcodes(str)
-	return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
 return {
-	generan = {
+	general = {
 		n = {
 			["<C-s>"] = { "<cmd>:w<CR>", "Save File" },
 		},
@@ -59,6 +55,20 @@ return {
 			["<leader>hr"] = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" },
 		},
 	},
+
+	toggleterm = {
+		n = {
+			["<A-i>"] = { "<cmd>ToggleTerm direction=float<cr>", "Open Float Term" },
+			["<A-v>"] = { "<cmd>ToggleTerm direction=vertical<cr>", "Open Vert Term" },
+			["<A-h>"] = { "<cmd>ToggleTerm direction=horizontal<cr>", "Open Horz Term" },
+		},
+		t = {
+			["<A-i>"] = { "<cmd>ToggleTerm direction=float<cr>", "Open Float Term" },
+			["<A-v>"] = { "<cmd>ToggleTerm direction=vertical<cr>", "Open Vert Term" },
+			["<A-h>"] = { "<cmd>ToggleTerm direction=horizontal<cr>", "Open Horz Term" },
+		},
+	},
+
 	nvimtree = {
 		n = {
 			["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
@@ -74,49 +84,6 @@ return {
 	},
 	restNvim = {
 		n = { ["<leader>br"] = { "<Plug>RestNvim<CR>", "Rest Testing" } },
-	},
-	nvterm = {
-		n = {
-			["<A-i>"] = {
-				function()
-					require("nvterm.terminal").toggle("float")
-				end,
-				"toggle floating term",
-			},
-			["<A-h>"] = {
-				function()
-					require("nvterm.terminal").toggle("horizontal")
-				end,
-				"toggle horizontal term",
-			},
-			["<A-v>"] = {
-				function()
-					require("nvterm.terminal").toggle("vertical")
-				end,
-				"toggle vertical term",
-			},
-		},
-		t = {
-			["<A-i>"] = {
-				function()
-					require("nvterm.terminal").toggle("float")
-				end,
-				"toggle floating term",
-			},
-			["<A-h>"] = {
-				function()
-					require("nvterm.terminal").toggle("horizontal")
-				end,
-				"toggle horizontal term",
-			},
-			["<A-v>"] = {
-				function()
-					require("nvterm.terminal").toggle("vertical")
-				end,
-				"toggle vertical term",
-			},
-			["<C-x>"] = { termcodes("<C-\\><C-N>:q<CR>"), "escape terminal mode" },
-		},
 	},
 	code_runner = {
 		n = {
@@ -378,21 +345,6 @@ return {
 			["<leader>tp"] = { "<Plug>PlenaryTestFile<cr>", "Plenary TestFile" },
 			["<leader>tv"] = { "<cmd>TestVisit<cr>", "Visit" },
 			["<leader>tx"] = { "<cmd>TestSuite<cr>", "Suite" },
-		},
-	},
-	overseer = {
-		n = {
-			["<leader>oC"] = { "<cmd>OverseerClose<cr>", "Overseer Close" },
-			["<leader>oa"] = { "<cmd>OverseerTaskAction<cr>", "Overseer Task Action" },
-			["<leader>ob"] = { "<cmd>OverseerBuild<cr>", "Overseer Build" },
-			["<leader>oc"] = { "<cmd>OverseerRunCmd<cr>", "Overseer Run Cmd" },
-			["<leader>od"] = { "<cmd>OverseerDeleteBundle<cr>", "Overseer Delete Bundle" },
-			["<leader>ol"] = { "<cmd>OverseerLoadBundle<cr>", "Overseer LoadBundle" },
-			["<leader>oo"] = { "<cmd>OverseerOpen!<cr>", "Overseer Open" },
-			["<leader>oq"] = { "<cmd>OverseerQuickAction<cr>", "Overseer Quick Action" },
-			["<leader>or"] = { "<cmd>OverseerRun<cr>", "Overseer Run" },
-			["<leader>os"] = { "<cmd>OverseerSaveBundle<cr>", "Overseer Save Bundle" },
-			["<leader>ot"] = { "<cmd>OverseerToggle!<cr>", "Overseer Toggle" },
 		},
 	},
 	trouble = {
