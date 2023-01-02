@@ -24,6 +24,19 @@ local options = {
 				}
 			end,
 		},
+		["php"] = {
+			function()
+				return {
+					exe = "php-cs-fixer",
+					args = {
+						"--no-interaction",
+						"--quiet",
+						"fix",
+					},
+					stdin = false,
+				}
+			end,
+		},
 		["go"] = {
 			function()
 				return {

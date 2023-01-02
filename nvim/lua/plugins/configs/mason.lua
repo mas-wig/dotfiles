@@ -11,7 +11,7 @@ local options = {
 		"css-lsp",
 		"gopls",
 		"rust-analyzer",
-		"intelephense",
+		"phpactor",
 		"typescript-language-server",
 		"pyright",
 		"lua-language-server",

@@ -71,7 +71,6 @@ local opt = {
 			"kotlin_language_server",
 			"nimls",
 			"vuels",
-			"phpactor",
 			"omnisharp",
 			"r_language_server",
 			"terraformls",
@@ -82,16 +81,38 @@ local opt = {
 			"sourcekit",
 			"fsautocomplete",
 			"vls",
+			"intelephense",
 			"hls",
 		},
-		intelephense = { capabilities = M.capabilities, single_file_support = true },
+		phpactor = {
+			capabilities = M.capabilities,
+			cmd = { "phpactor", "language-server" },
+			filetypes = { "php" },
+			single_file_support = true,
+		},
 		sumneko_lua = { capabilities = M.capabilities, single_file_support = true },
 		cssls = { capabilities = M.capabilities, single_file_support = true },
 		html = { capabilities = M.capabilities, single_file_support = true },
-		tsserver = { capabilities = M.capabilities, single_file_support = true },
 		rust_analyzer = { capabilities = M.capabilities, single_file_support = true },
 		clangd = { capabilities = M.capabilities, single_file_support = true },
 		pyright = { capabilities = M.capabilities, single_file_support = true },
+
+		tsserver = {
+			capabilities = M.capabilities,
+			filetypes = {
+				"javascript",
+				"javascriptreact",
+				"javascript.jsx",
+				"typescript",
+				"typescriptreact",
+				"typescript.tsx",
+			},
+			cmd = { "typescript-language-server", "--stdio" },
+			init_options = {
+				hostInfo = "neovim",
+			},
+			single_file_support = true,
+		},
 	},
 }
 

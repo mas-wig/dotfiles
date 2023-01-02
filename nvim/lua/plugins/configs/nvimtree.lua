@@ -81,5 +81,4 @@ local options = {
 	},
 }
 
-vim.opt_local.winbar = nil
 nvimtree.setup(options)
