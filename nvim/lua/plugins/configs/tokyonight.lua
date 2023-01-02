@@ -32,31 +32,26 @@ local cfg = {
 	hide_inactive_statusline = false,
 	dim_inactive = true,
 	lualine_bold = false,
-
 	-- on_colors = function(colors) end,
-
 	on_highlights = function(hl, _)
-		-- hl["@field"] = { fg = "#ace600" }
 		hl.WinSeparator = { fg = "#33ffad" }
 		hl.IndentBlanklineContextChar = { fg = "#00cc7a", nocombine = true }
 		hl.Folded = { fg = "#ace600", bg = "#34444c" }
 		hl.NvimTreeIndentMarker = { fg = "#b30077" }
 		hl.NvimTreeWinSeparator = { fg = "#2eb8b8" }
 		hl.NvimTreeNormal = { fg = c.fg_sidebar, bg = "none" }
-
 		hl.TelescopeBorder = {
 			fg = "#99e600", -- bg = "#1a1b26",
 		}
-
+		hl.WhichKey = { fg = c.cyan, bg = "" }
+		hl.WhichKeyFloat = { bg = "" }
 		hl.NormalFloat = { fg = c.fg_float, bg = "none" }
 		hl.FloatBorder = { fg = c.border_highlight, bg = "none" }
-
 		hl.TelescopePromptTitle = { bg = "#ff1a1a", fg = "#111a00" }
 		hl.TelescopePreviewTitle = { bg = "#1affff", fg = "#111a00" }
 		hl.TelescopeResultsTitle = { bg = "#ff33ff", fg = "#111a00" }
 		hl.TelescopeNormal = { bg = "" }
 		hl.LineNr = { fg = "#ffffff" } -- Line Nummber
-
 		hl.NavicSeparator = { fg = "#1affd1", bg = "" }
 		hl.NavicText = { fg = "#ff3385", bg = "", italic = false }
 		hl.NavicIconsFile = { bg = "" }

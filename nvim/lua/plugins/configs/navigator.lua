@@ -88,7 +88,6 @@ local opt = {
 			capabilities = M.capabilities,
 			cmd = { "phpactor", "language-server" },
 			filetypes = { "php" },
-			single_file_support = true,
 		},
 		sumneko_lua = { capabilities = M.capabilities, single_file_support = true },
 		cssls = { capabilities = M.capabilities, single_file_support = true },
