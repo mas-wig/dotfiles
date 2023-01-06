@@ -436,6 +436,22 @@ local function plugins(use)
 	})
 
 	use({
+		"jackMort/ChatGPT.nvim",
+		cmd = { "ChatGPT", "ChatGPTActAs" },
+		setup = function()
+			vim.schedule(function()
+				require("packer").loader("telescope.nvim")
+			end)
+		end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+		},
+		config = function()
+			require("plugins.configs.chatgpt")
+		end,
+	})
+
+	use({
 		"folke/which-key.nvim",
 		opt = true,
 		config = function()
