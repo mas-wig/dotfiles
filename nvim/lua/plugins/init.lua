@@ -445,6 +445,8 @@ local function plugins(use)
 		end,
 		requires = {
 			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
 			require("plugins.configs.chatgpt")

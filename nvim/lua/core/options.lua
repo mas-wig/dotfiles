@@ -35,6 +35,7 @@ vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpo
 vim.o.showtabline = 5
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
 ---
 local default_providers = {
 	"node",
