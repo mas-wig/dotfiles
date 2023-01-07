@@ -48,7 +48,6 @@ M.setup = function()
 			local winbar_filetype_exclude = {
 				"help",
 				"packer",
-				"input",
 				"NvimTree",
 				"Trouble",
 				"nvterm",
@@ -62,10 +61,6 @@ M.setup = function()
 				"dapui_console",
 				"TelescopePrompt",
 				"navigator",
-				"nui",
-				"chatgpt",
-				"NormalFloat",
-				"FloatBorder",
 			}
 			if vim.api.nvim_win_get_config(0).relative ~= "" then
 				return

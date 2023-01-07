@@ -39,4 +39,4 @@ vim.defer_fn(function()
 	end, 3)
 end, 0)
 
-require("plugins")
+require("plugins.plugins")

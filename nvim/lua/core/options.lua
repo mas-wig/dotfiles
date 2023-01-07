@@ -6,9 +6,8 @@ vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.updatetime = 250
 vim.opt.signcolumn = "yes"
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamed,unnamedplus"
 vim.opt.timeoutlen = 300
 vim.opt.swapfile = false
 vim.opt.tabstop = 4
@@ -21,9 +20,14 @@ vim.opt.smarttab = true
 vim.opt.smartindent = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.updatetime = 250
+vim.opt.updatetime = 150
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
+vim.opt.encoding = "utf-8"
+vim.opt.autoindent = true
+vim.opt.pumheight = 12
+vim.opt.emoji = true
+vim.opt.cursorline = true
 
 vim.opt.foldcolumn = "0"
 vim.opt.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -66,3 +70,7 @@ augroup END
 vim.g.db_ui_use_nerd_fonts = 1
 vim.g.navic_silence = true
 vim.g.db_ui_save_location = "~/.config/nvim/db"
+
+vim.defer_fn(function()
+	pcall(require, "core.autocmd")
+end, 1)

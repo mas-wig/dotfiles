@@ -67,5 +67,3 @@ require("chatgpt").setup({
 		cycle_windows = "<Tab>",
 	},
 })
-
-print(vim.bo.filetype)
