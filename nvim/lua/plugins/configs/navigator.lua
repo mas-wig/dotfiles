@@ -25,10 +25,29 @@ M.capabilities.textDocument.completion.completionItem = {
 	},
 }
 
+M.on_attach = function(client, _)
+	client.server_capabilities.documentFormattingProvider = false
+	client.server_capabilities.documentRangeFormattingProvider = false
+end
+
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+local path_sep = require("navigator.util").path_sep()
+local strip_dir_pat = path_sep .. "([^" .. path_sep .. "]+)$"
+local strip_sep_pat = path_sep .. "$"
+local dirname = function(pathname)
+	if not pathname or #pathname == 0 then
+		return
+	end
+	local result = pathname:gsub(strip_sep_pat, ""):gsub(strip_dir_pat, "")
+	if #result == 0 then
+		return "/"
+	end
+	return result
 end
 
 local opt = {
@@ -88,6 +107,10 @@ local opt = {
 			capabilities = M.capabilities,
 			cmd = { "phpactor", "language-server" },
 			filetypes = { "php" },
+			root_dir = function(fname)
+				return require("lspconfig").util.root_pattern(".git")(fname) or dirname(fname)
+			end,
+			single_file_support = true,
 		},
 		sumneko_lua = { capabilities = M.capabilities, single_file_support = true },
 		cssls = { capabilities = M.capabilities, single_file_support = true },
@@ -112,6 +135,16 @@ local opt = {
 			},
 			single_file_support = true,
 		},
+		solidity_ls = {
+			capabilities = M.capabilities,
+			on_attach = M.on_attach,
+			cmd = { "solidity-ls", "--stdio" },
+			root_dir = function(fname)
+				return require("lspconfig").util.root_pattern(".git")(fname) or dirname(fname)
+			end,
+			filetypes = { "solidity" },
+		},
+		servers = { "solidity_ls" },
 	},
 }
 

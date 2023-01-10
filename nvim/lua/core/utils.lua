@@ -2,16 +2,6 @@ local M = {}
 
 M.local_plugins = {}
 
-function M.bootstrap()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd("packadd packer.nvim")
-	end
-	vim.cmd([[packadd packer.nvim]])
-end
-
 function M.get_name(pkg)
 	local parts = vim.split(pkg, "/")
 	return parts[#parts], parts[1]
@@ -53,15 +43,25 @@ function M.wrap(use)
 	end
 end
 
-function M.setup(config, fn)
-	M.bootstrap()
+function M.bootstrap()
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+	if fn.empty(fn.glob(install_path)) > 0 then
+		fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+		vim.cmd("packadd packer.nvim")
+	end
+	vim.cmd([[packadd packer.nvim]])
+end
+
+function M.setup(config, set)
+    M.bootstrap()
 	local packer = require("packer")
 	packer.init(config)
 	M.local_plugins = config.local_plugins or {}
 	packer.startup({
 		function(use)
 			use = M.wrap(use)
-			fn(use)
+			set(use)
 		end,
 	})
 end

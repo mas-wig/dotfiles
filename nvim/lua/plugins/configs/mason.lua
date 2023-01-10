@@ -15,6 +15,7 @@ local options = {
 		"typescript-language-server",
 		"pyright",
 		"lua-language-server",
+		"solidity-ls",
 	},
 	ui = {
 		icons = {

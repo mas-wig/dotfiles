@@ -103,7 +103,7 @@ local setup = {
 				"diagnostics",
 				source = { "nvim_lsp" },
 				sections = { "info" },
-				symbols = { info = " " },
+				symbols = { info = " " },
 				update_in_insert = true,
 				diagnostics_color = { warn = { bg = colors.blue, fg = "#000000" } },
 			},
@@ -111,7 +111,7 @@ local setup = {
 				"diagnostics",
 				source = { "nvim_lsp" },
 				sections = { "hint" },
-				symbols = { hint = " " },
+				symbols = { hint = " " },
 				update_in_insert = true,
 				diagnostics_color = { warn = { bg = colors.green, fg = "#000000" } },
 			},
@@ -121,7 +121,6 @@ local setup = {
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	}),
-
 	inactive_sections = {
 		lualine_a = {},
 		lualine_b = {},

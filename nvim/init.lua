@@ -31,12 +31,9 @@ vim.defer_fn(function()
     ]])
 
 	vim.defer_fn(function()
-		vim.cmd([[
-		PackerLoad impatient.nvim
-		PackerLoad which-key.nvim
-		silent! bufdo e
-		]])
-	end, 3)
+		require("packer").loader("impatient.nvim")
+		require("packer").loader("which-key.nvim")
+	end, 1)
 end, 0)
 
 require("plugins.plugins")

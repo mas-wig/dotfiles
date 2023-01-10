@@ -225,13 +225,13 @@ M.noices = function()
 			progress = {
 				enabled = true,
 				format = {
-					{ "{data.progress.percentage}%" },
+					{ "{data.progress.percentage}% " },
 					{ " {spinner} ", hl_group = "NoiceLspProgressSpinner" },
 					{ "{data.progress.title} ", hl_group = "NoiceLspProgressTitle" },
 					{ "{data.progress.client} ", hl_group = "NoiceLspProgressClient" },
 				},
 				format_done = "lsp_progress_done",
-				throttle = 900 / 1,
+				throttle = 1000 / 1,
 				view = "notify",
 			},
 
