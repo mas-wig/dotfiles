@@ -21,7 +21,6 @@ require("core.options")
 
 vim.defer_fn(function()
 	vim.opt.shadafile = ""
-
 	vim.cmd([[
     rshada!
     doautocmd BufRead
@@ -34,6 +33,6 @@ vim.defer_fn(function()
 		require("packer").loader("impatient.nvim")
 		require("packer").loader("which-key.nvim")
 	end, 1)
-end, 0)
 
-require("plugins.plugins")
+	require("core.utils").setup()
+end, 0)

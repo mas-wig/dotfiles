@@ -35,13 +35,10 @@ M.setup = function()
 	wk.setup(options)
 
 	local mappings = require("core.mappings")
-	if not present then
-		return
-	end
 
-	for _, k in pairs(mappings) do
-		for v, x in pairs(k) do
-			wk.register(x, { mode = v })
+	for _, keymap in pairs(mappings) do
+		for mode, command in pairs(keymap) do
+			wk.register(command, { mode = mode })
 		end
 	end
 end

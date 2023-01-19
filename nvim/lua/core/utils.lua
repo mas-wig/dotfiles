@@ -1,71 +1,51 @@
 local M = {}
 
-M.local_plugins = {}
-
-function M.get_name(pkg)
-	local parts = vim.split(pkg, "/")
-	return parts[#parts], parts[1]
-end
-
-function M.has_local(name)
-	return vim.loop.fs_stat(vim.fn.expand("~/projects/" .. name)) ~= nil
-end
-
--- Replace semua plugins dengan local clone ke ~/projects folder
-function M.process_local_plugins(spec)
-	if type(spec) == "string" then
-		local name, owner = M.get_name(spec)
-		local local_pkg = "~/projects/" .. name
-
-		if M.local_plugins[name] or M.local_plugins[owner] or M.local_plugins[owner .. "/" .. name] then
-			if M.has_local(name) then
-				return local_pkg
-			else
-				error("Local package " .. name .. " not found")
-			end
+M.load_plugins = function()
+	local ensure_packer = function()
+		local fn = vim.fn
+		local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+		if fn.empty(fn.glob(install_path)) > 0 then
+			fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+			vim.cmd([[packadd packer.nvim]])
+			return true
 		end
-		return spec
-	else
-		for i, s in ipairs(spec) do
-			spec[i] = M.process_local_plugins(s)
-		end
+		return false
 	end
-	if spec.requires then
-		spec.requires = M.process_local_plugins(spec.requires)
-	end
-	return spec
-end
 
-function M.wrap(use)
-	return function(spec)
-		spec = M.process_local_plugins(spec)
-		use(spec)
-	end
-end
+	local packer_bootstrap = ensure_packer()
+	local plugins = require("plugins.plugins")
 
-function M.bootstrap()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd("packadd packer.nvim")
-	end
-	vim.cmd([[packadd packer.nvim]])
-end
-
-function M.setup(config, set)
-    M.bootstrap()
-	local packer = require("packer")
-	packer.init(config)
-	M.local_plugins = config.local_plugins or {}
-	packer.startup({
-		function(use)
-			use = M.wrap(use)
-			set(use)
-		end,
+	require("packer").init({
+		profile = {
+			enable = true,
+			threshold = 0,
+		},
+		display = {
+			open_fn = function()
+				return require("packer.util").float({ border = "rounded" })
+			end,
+		},
 	})
+
+	require("packer").startup({ plugins })
+
+	if packer_bootstrap then
+		require("packer").sync()
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "PackerComplete",
+			callback = function()
+				vim.cmd("bw | silent! MasonInstallAll")
+				require("packer").loader("nvim-treesitter")
+			end,
+		})
+	end
 end
 
+M.load_autocmd = function()
+	return pcall(require, "core.autocmd")
+end
+
+-- LAZY LOAD --
 M.lazy_load = function(tb)
 	vim.api.nvim_create_autocmd(tb.events, {
 		group = vim.api.nvim_create_augroup(tb.augroup_name, {}),
@@ -97,6 +77,28 @@ M.on_file_open = function(plugin_name)
 			return file ~= "NvimTree_1" and file ~= "[packer]" and file ~= ""
 		end,
 	})
+end
+
+M.gitsigns = function()
+	vim.api.nvim_create_autocmd({ "BufRead" }, {
+		group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
+		callback = function()
+			vim.fn.system("git -C " .. vim.fn.expand("%:p:h") .. " rev-parse")
+			if vim.v.shell_error == 0 then
+				vim.api.nvim_del_augroup_by_name("GitSignsLazyLoad")
+				vim.schedule(function()
+					require("packer").loader("gitsigns.nvim")
+				end)
+			end
+		end,
+	})
+end
+
+-- END --
+
+M.setup = function()
+	M.load_plugins()
+	M.load_autocmd()
 end
 
 return M
