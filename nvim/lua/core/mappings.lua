@@ -1,576 +1,362 @@
 return {
 	general = {
-		n = {
-			["<C-s>"] = { "<cmd>:w<CR>", "Save File" },
-		},
-		i = {
-			["<C-s>"] = { "<cmd>:w<CR>", "Save File" },
-		},
+		{ "n", "<C-s>", "<cmd>:w<CR>", "Save File" },
+		{ "i", "<C-s>", "<cmd>:w<CR>", "Save File" },
 	},
 	telescope = {
-		n = {
-			["<leader>ff"] = { "<cmd>Telescope find_files<CR>", "find files" },
-			["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
-			["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
-			["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
-			["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
-			["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
-			["<leader>fc"] = { "<cmd> Telescope colorscheme <CR>", "colorscheme" },
-			["<leader>fm"] = {
-				function()
-					require("telescope").extensions.media_files.media_files()
-				end,
-				"media files",
-			},
-		},
+
+		{ "n", "<leader>ff", "<cmd>Telescope find_files<CR>", "find files" },
+		{ "n", "<leader>fa", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
+		{ "n", "<leader>fw", "<cmd> Telescope live_grep <CR>", "live grep" },
+		{ "n", "<leader>fb", "<cmd> Telescope buffers <CR>", "find buffers" },
+		{ "n", "<leader>fh", "<cmd> Telescope help_tags <CR>", "help page" },
+		{ "n", "<leader>fo", "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
+		{ "n", "<leader>fc", "<cmd> Telescope colorscheme <CR>", "colorscheme" },
+		{ "n", "<leader>fm", "lua require('telescope').extensions.media_files.media_files()", "media files" },
 	},
 	gitsigns = {
-		n = {
-			["<leader>hs"] = { ":Gitsigns stage_hunk<CR>", "Stage Hunk" },
-			["<leader>hr"] = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" },
-			["<leader>hS"] = { "<cmd>Gitsigns stage_buffer<CR>", "Stage Buffer" },
-			["<leader>hu"] = { "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk" },
-			["<leader>hR"] = { "<cmd>Gitsigns reset_buffer<CR>", "Reset Buffer" },
-			["<leader>hp"] = { "<cmd>Gitsigns preview_hunk<CR>", "Preview Hunk" },
-			["<leader>hb"] = {
-				function()
-					require("gitsigns").blame_line({ full = true })
-				end,
-				"Blame Line",
-			},
-			["<leader>tb"] = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle Current Line Blame" },
-			["<leader>hd"] = { "<cmd>Gitsigns diffthis<CR>", "Diffthis" },
-			["<leader>hD"] = {
-				function()
-					require("gitsigns").diffthis("~")
-				end,
-				"Difthis ~",
-			},
-			["<leader>td"] = { "<cmd>Gitsigns toggle_deleted<CR>", "Toogle Deleted" },
-			["]c"] = { "<cmd>Gitsigns next_hunk<CR>", "Next Hunk" },
-			["[c"] = { "<cmd>Gitsigns prev_hunk<CR>", "Prev Hunk" },
+		{ "n", "<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage Hunk" },
+		{ "n", "<leader>hr", ":Gitsigns reset_hunk<CR>", "Reset Hunk" },
+		{ "n", "<leader>hS", "<cmd>Gitsigns stage_buffer<CR>", "Stage Buffer" },
+		{ "n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk" },
+		{ "n", "<leader>hR", "<cmd>Gitsigns reset_buffer<CR>", "Reset Buffer" },
+		{ "n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", "Preview Hunk" },
+		{
+			"n",
+			"<leader>hb",
+			"lua require('gitsigns').blame_line({ full = true })",
+			"Blame Line",
 		},
-		v = {
-			["<leader>hs"] = { ":Gitsigns stage_hunk<CR>", "Stage Hunk" },
-			["<leader>hr"] = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" },
-		},
+		{ "n", "<leader>tb", "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle Current Line Blame" },
+		{ "n", "<leader>hd", "<cmd>Gitsigns diffthis<CR>", "Diffthis" },
+		{ "n", "<leader>hD", "lua require('gitsigns').diffthis(' ~ ')", "Difthis ~" },
+		{ "n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>", "Toogle Deleted" },
+		{ "n", "]c", "<cmd>Gitsigns next_hunk<CR>", "Next Hunk" },
+		{ "n", "[c", "<cmd>Gitsigns prev_hunk<CR>", "Prev Hunk" },
+		{ "v", "<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage Hunk" },
+		{ "v", "<leader>hr", ":Gitsigns reset_hunk<CR>", "Reset Hunk" },
 	},
 
 	toggleterm = {
-		n = {
-			["<A-i>"] = { "<cmd>ToggleTerm direction=float<cr>", "Open Float Term" },
-			["<A-v>"] = { "<cmd>ToggleTerm direction=vertical<cr>", "Open Vert Term" },
-			["<A-h>"] = { "<cmd>ToggleTerm direction=horizontal<cr>", "Open Horz Term" },
-		},
-		t = {
-			["<A-i>"] = { "<cmd>ToggleTerm direction=float<cr>", "Open Float Term" },
-			["<A-v>"] = { "<cmd>ToggleTerm direction=vertical<cr>", "Open Vert Term" },
-			["<A-h>"] = { "<cmd>ToggleTerm direction=horizontal<cr>", "Open Horz Term" },
-		},
+
+		{ "n", "<A-i>", "<cmd>ToggleTerm direction=float<cr>", "Open Float Term" },
+		{ "n", "<A-v>", "<cmd>ToggleTerm direction=vertical<cr>", "Open Vert Term" },
+		{ "n", "<A-h>", "<cmd>ToggleTerm direction=horizontal<cr>", "Open Horz Term" },
+
+		{ "t", "<A-i>", "<cmd>ToggleTerm direction=float<cr>", "Open Float Term" },
+		{ "t", "<A-v>", "<cmd>ToggleTerm direction=vertical<cr>", "Open Vert Term" },
+		{ "t", "<A-h>", "<cmd>ToggleTerm direction=horizontal<cr>", "Open Horz Term" },
 	},
 
 	nvimtree = {
-		n = {
-			["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
-			["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
-		},
+
+		{ "n", "<C-n>", "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
+		{ "n", "<leader>e", "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
 	},
 	bufferline = {
-		n = {
-			["<TAB>"] = { "<cmd> BufferLineCycleNext <CR>", "Buffer Next" },
-			["<S-Tab>"] = { "<cmd> BufferLineCyclePrev <CR>", "Buffer Prev" },
-			["<leader>bc"] = { "<cmd>:bd<CR>", "Close Buffer" },
-		},
+
+		{ "n", "<TAB>", "<cmd> BufferLineCycleNext <CR>", "Buffer Next" },
+		{ "n", "<S-Tab>", "<cmd> BufferLineCyclePrev <CR>", "Buffer Prev" },
+		{ "n", "<leader>bc", "<cmd>:bd<CR>", "Close Buffer" },
 	},
 	restNvim = {
-		n = { ["<leader>br"] = { "<Plug>RestNvim<CR>", "Rest Testing" } },
+		{ "n", "<leader>br", "<Plug>RestNvim<CR>", "Rest Testing" },
 	},
 	code_runner = {
-		n = {
-			["<leader>rc"] = { "<cmd>RunCode<CR>", "Run Code" },
-			["<leader>rf"] = { "<cmd>RunFile<CR>", "Run File" },
-			["<leader>rft"] = { "<cmd>RunFile tab<CR>", "Run File tab" },
-			["<leader>rp"] = { "<cmd>RunProject<CR>", "Run Project" },
-			["<leader>rq"] = { "<cmd>RunClose<CR>", "Run CLose" },
-			["<leader>crf"] = { "<cmd>CRFiletype<CR>", "CR Filetype" },
-			["<leader>crp"] = { "<cmd>CRProjects<CR>", "CR Project" },
-		},
+
+		{ "n", "<leader>rc", "<cmd>RunCode<CR>", "Run Code" },
+		{ "n", "<leader>rf", "<cmd>RunFile<CR>", "Run File" },
+		{ "n", "<leader>rft", "<cmd>RunFile tab<CR>", "Run File tab" },
+		{ "n", "<leader>rp", "<cmd>RunProject<CR>", "Run Project" },
+		{ "n", "<leader>rq", "<cmd>RunClose<CR>", "Run CLose" },
+		{ "n", "<leader>crf", "<cmd>CRFiletype<CR>", "CR Filetype" },
+		{ "n", "<leader>crp", "<cmd>CRProjects<CR>", "CR Project" },
 	},
 	comment = {
-		n = {
-			["<leader>gc"] = {
-				function()
-					require("Comment.api").toggle.linewise.current()
-				end,
-				"toggle comment",
-			},
+		{
+			"n",
+			"<leader>gc",
+			"lua require('Comment.api').toggle.linewise.current()",
+			"toggle comment",
 		},
-		v = {
-			["<leader>gc"] = {
-				"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-				"toggle comment",
-			},
+		{
+			"v",
+			"<leader>gc",
+			"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+			"toggle comment",
 		},
 	},
 	dap = {
-		n = {
-			["<leader>dR"] = {
-				function()
-					require("dap").run_to_cursor()
-				end,
-				"Run to Cursor",
-			},
-			["<leader>dE"] = {
-				function()
-					require("dapui").eval(vim.fn.input("[Expression] > "))
-				end,
-				"Evaluate Input",
-			},
-			["<leader>dC"] = {
-				function()
-					require("dap").set_breakpoint(vim.fn.input("[Condition] > "))
-				end,
-				"Conditional Breakpoint",
-			},
-			["<leader>dU"] = {
-				function()
-					require("dapui").toggle()
-				end,
-				"Toggle UI",
-			},
-			["<leader>db"] = {
-				function()
-					require("dap").step_back()
-				end,
-				"Step Back",
-			},
-			["<leader>dc"] = {
-				function()
-					require("dap").continue()
-				end,
-				"Continue",
-			},
-			["<leader>dd"] = {
-				function()
-					require("dap").disconnect()
-				end,
-				"Disconnect",
-			},
-			["<leader>de"] = {
-				function()
-					require("dapui").eval()
-				end,
-				"Evaluate",
-			},
-			["<leader>dg"] = {
-				function()
-					require("dap").session()
-				end,
-				"Get Session",
-			},
 
-			-- Floating dap windows --
-			["<leader>dft"] = {
-				function()
-					require("dapui").float_element("scopes", { width = 100, height = 20, enter = true })
-				end,
-				"Scope Float",
-			},
-			["<leader>dfr"] = {
-				function()
-					require("dapui").float_element("repl", { width = 100, height = 20, enter = true })
-				end,
-				"Repl Float",
-			},
-			["<leader>dfc"] = {
-				function()
-					require("dapui").float_element("console", { width = 100, height = 20, enter = true })
-				end,
-				"Console Float",
-			},
-			["<leader>dfb"] = {
-				function()
-					require("dapui").float_element("breakpoints", { width = 100, height = 20, enter = true })
-				end,
-				"Breakpoint Float",
-			},
-			["<leader>dfs"] = {
-				function()
-					require("dapui").float_element("stacks", { width = 100, height = 20, enter = true })
-				end,
-				"Stacks Float",
-			},
-			["<leader>dfw"] = {
-				function()
-					require("dapui").float_element("watches", { width = 100, height = 20, enter = true })
-				end,
-				"Watches Float",
-			},
-			-- End --
+		{ "n", "<leader>dR", "lua require('dap').run_to_cursor()", "Run to Cursor" },
+		{
+			"n",
+			"<leader>dE",
+			"lua require('dapui').eval(vim.fn.input('[Expression] > '))",
+			"Evaluate Input",
+		},
+		{
+			"n",
+			"<leader>dC",
+			"lua require('dap').set_breakpoint(vim.fn.input('[Condition] > '))",
+			"Conditional Breakpoint",
+		},
+		{ "n", "<leader>dU", "lua require('dapui').toggle()", "Toggle UI" },
+		{ "n", "<leader>db", "lua require('dap').step_back()", "Step Back" },
+		{ "n", "<leader>dc", "lua require('dap').continue()", "Continue" },
+		{ "n", "<leader>dd", "lua require('dap').disconnect()", "Disconnect" },
+		{ "n", "<leader>de", "lua require('dapui').eval()", "Evaluate" },
+		{ "n", "<leader>dg", "lua require('dap').session()", "Get Session" },
 
-			["<leader>dh"] = {
-				function()
-					require("dap.ui.widgets").hover()
-				end,
-				"Hover Variables",
-			},
-			["<leader>dS"] = {
-				function()
-					require("dap.ui.widgets").scopes()
-				end,
-				"Scopes",
-			},
-			["<leader>di"] = {
-				function()
-					require("dap").step_into()
-				end,
-				"Step Into",
-			},
-			["<leader>do"] = {
-				function()
-					require("dap").step_over()
-				end,
-				"Step Over",
-			},
-			["<leader>dp"] = {
-				function()
-					require("dap").pause.toggle()
-				end,
-				"Pause",
-			},
-			["<leader>dq"] = {
-				function()
-					require("dap").close()
-				end,
-				"Quit",
-			},
-			["<leader>dr"] = {
-				function()
-					require("dap").repl.toggle()
-				end,
-				"Toggle Repl",
-			},
-			["<leader>ds"] = {
-				function()
-					require("dap").continue()
-				end,
-				"Start",
-			},
-			["<leader>dt"] = { "<cmd>DapToggleBreakpoint<CR>", "Toggle Breakpoint" },
-			["<leader>dx"] = {
-				function()
-					require("dap").terminate()
-				end,
-				"Terminate",
-			},
-			["<leader>du"] = {
-				function()
-					require("dap").step_out()
-				end,
-				"Step Out",
-			},
+		-- Floating dap windows --
+		{
+			"n",
+			"<leader>dft",
+			"lua require('dapui').float_element('scopes', { width = 100, height = 20, enter = true })",
+			"Scope Float",
 		},
-		v = {
-			["<leader>e"] = {
-				function()
-					require("dapui").eval()
-				end,
-				"Evaluate",
-			},
+		{
+			"n",
+			"<leader>dfr",
+			"lua require('dapui').float_element('repl', { width = 100, height = 20, enter = true })",
+			"Repl Float",
 		},
+		{
+			"n",
+			"<leader>dfc",
+			"lua require('dapui').float_element('console', { width = 100, height = 20, enter = true })",
+			"Console Float",
+		},
+		{
+			"n",
+			"<leader>dfb",
+			"lua require('dapui').float_element('breakpoints', { width = 100, height = 20, enter = true })",
+			"Breakpoint Float",
+		},
+		{
+			"n",
+			"<leader>dfs",
+			"lua require('dapui').float_element('stacks', { width = 100, height = 20, enter = true })",
+			"Stacks Float",
+		},
+		{
+			"n",
+			"<leader>dfw",
+			"lua require('dapui').float_element('watches', { width = 100, height = 20, enter = true })",
+			"Watches Float",
+		},
+		-- End --
+
+		{
+			"n",
+			"<leader>dh",
+			"lua require('dap.ui.widgets').hover()",
+			"Hover Variables",
+		},
+		{ "n", "<leader>dS", "lua require('dap.ui.widgets').scopes()", "Scopes" },
+		{ "n", "<leader>di", "lua require('dap').step_into()", "Step Into" },
+		{ "n", "<leader>do", "lua require('dap').step_over()", "Step Over" },
+		{ "n", "<leader>dp", "lua require('dap').pause.toggle()", "Pause" },
+		{ "n", "<leader>dq", "lua require('dap').close()", "Quit" },
+		{ "n", "<leader>dr", "lua require('dap').repl.toggle()", "Toggle Repl" },
+		{ "n", "<leader>ds", "lua require('dap').continue()", "Start" },
+		{ "n", "<leader>dt", "<cmd>DapToggleBreakpoint<CR>", "Toggle Breakpoint" },
+		{ "n", "<leader>dx", "lua require('dap').terminate()", "Terminate" },
+		{ "n", "<leader>du", "lua require('dap').step_out()", "Step Out" },
+
+		{ "v", "<leader>e", "lua require('dapui').eval()", "Evaluate" },
 	},
 	neotest = {
-		n = {
-			["<leader>ta"] = {
-				function()
-					require("neotest").run.attach()
-				end,
-				"Attach",
-			},
-			["<leader>tf"] = {
-				function()
-					require("neotest").run.run(vim.fn.expand("%"))
-				end,
-				"Run File",
-			},
-			["<leader>tF"] = {
-				function()
-					require("neotest").run.run({ vim.fn.expand("%"), strategy = "dap" })
-				end,
-				"Debug File",
-			},
-			["<leader>tl"] = {
-				function()
-					require("neotest").run.run_last()
-				end,
-				"Run Last",
-			},
-			["<leader>tL"] = {
-				function()
-					require("neotest").run.run_last({ strategy = "dap" })
-				end,
-				"Debug Last",
-			},
-			["<leader>tn"] = {
-				function()
-					require("neotest").run.run()
-				end,
-				"Run Nearest",
-			},
-			["<leader>tN"] = {
-				function()
-					require("neotest").run.run({ strategy = "dap" })
-				end,
-				"Debug Nearest",
-			},
-			["<leader>to"] = {
-				function()
-					require("neotest").output.open({ enter = true, short = true })
-				end,
-				"Output",
-			},
-			["<leader>tS"] = {
-				function()
-					require("neotest").run.stop()
-				end,
-				"Stop",
-			},
-			["<leader>ts"] = {
-				function()
-					require("neotest").summary.toggle()
-				end,
-				"Summary",
-			},
 
-			["<leader>tp"] = { "<Plug>PlenaryTestFile<cr>", "Plenary TestFile" },
-			["<leader>tv"] = { "<cmd>TestVisit<cr>", "Visit" },
-			["<leader>tx"] = { "<cmd>TestSuite<cr>", "Suite" },
+		{ "n", "<leader>ta", "lua require('neotest').run.attach()", "Attach" },
+		{
+			"n",
+			"<leader>tf",
+			"lua require('neotest').run.run(vim.fn.expand(' % '))",
+			"Run File",
 		},
+		{
+			"n",
+			"<leader>tF",
+			"lua require('neotest').run.run({ vim.fn.expand(' % '), strategy = 'dap' })",
+			"Debug File",
+		},
+		{ "n", "<leader>tl", "lua require('neotest').run.run_last()", "Run Last" },
+		{
+			"n",
+			"<leader>tL",
+			"lua require('neotest').run.run_last({ strategy = 'dap' })",
+			"Debug Last",
+		},
+		{ "n", "<leader>tn", "lua require('neotest').run.run()", "Run Nearest" },
+		{
+			"n",
+			"<leader>tN",
+			"lua require('neotest').run.run({ strategy = 'dap' })",
+			"Debug Nearest",
+		},
+		{
+			"n",
+			"<leader>to",
+			"lua require('neotest').output.open({ enter = true, short = true })",
+			"Output",
+		},
+		{ "n", "<leader>tS", "lua require('neotest').run.stop()", "Stop" },
+		{ "n", "<leader>ts", "lua require('neotest').summary.toggle()", "Summary" },
+
+		{ "n", "<leader>tp", "<Plug>PlenaryTestFile<cr>", "Plenary TestFile" },
+		{ "n", "<leader>tv", "<cmd>TestVisit<cr>", "Visit" },
+		{ "n", "<leader>tx", "<cmd>TestSuite<cr>", "Suite" },
 	},
 	trouble = {
-		n = {
-			["<leader>xx"] = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
-			["<leader>xw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Touble workspace" },
-			["<leader>xd"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Touble document" },
-			["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", "Trouble qf" },
-			["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", "Trouble loclist" },
-		},
+
+		{ "n", "<leader>xx", "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
+		{ "n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", "Touble workspace" },
+		{ "n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", "Touble document" },
+		{ "n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", "Trouble qf" },
+		{ "n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", "Trouble loclist" },
 	},
 	Hop = {
-		n = {
-			["F"] = { "<cmd>HopWord<cr>", "HopWord" },
-		},
+
+		{ "n", "F", "<cmd>HopWord<cr>", "HopWord" },
 	},
 	navigator = {
-		n = {
-			["K"] = {
-				function()
-					vim.lsp.buf.hover()
-				end,
-				"Hover Docs",
-			},
-			["gr"] = {
-				function()
-					require("navigator.reference").async_ref()
-				end,
-				"Async Reference",
-			},
-			["<leader>gr"] = {
-				function()
-					require("navigator.reference").reference()
-				end,
-				"Reference",
-			},
-			["g0"] = {
-				function()
-					require("navigator.symbols").document_symbols()
-				end,
-				"Document Symbols",
-			},
-			["gW"] = {
-				function()
-					require("navigator.workspace").workspace_symbol_live()
-				end,
-				"Workspace symbol live",
-			},
-			-- ["<c-]>"] = {
-			-- 	function()
-			-- 		require("navigator.definition").definition()
-			-- 	end,
-			-- 	"Definition",
-			-- },
-			["gd"] = {
-				function()
-					require("navigator.definition").definition()
-				end,
-				"Definition",
-			},
-			["gD"] = {
-				function()
-					vim.lsp.buf.declaration()
-				end,
-				"declaration",
-			},
-			["gp"] = {
-				function()
-					require("navigator.definition").definition_preview()
-				end,
-				"Definition Preview",
-			},
-			["<leader>gt"] = {
-				function()
-					require("navigator.treesitter").buf_ts()
-				end,
-				"Buffer ts",
-			},
-			["<leader>gT"] = {
-				function()
-					require("navigator.treesitter").bufs_ts()
-				end,
-				"Buffers ts",
-			},
-			["<leader>ct"] = {
-				function()
-					require("navigator.ctags").ctags()
-				end,
-				"ctags",
-			},
-			["<leader>ca"] = {
-				function()
-					require("navigator.codeAction").code_action()
-				end,
-				"Code Action",
-			},
-			["<Space>rn"] = {
-				function()
-					require("navigator.rename").rename()
-				end,
-				"rename",
-			},
-			["<Leader>gi"] = {
-				function()
-					vim.lsp.buf.incoming_calls()
-				end,
-				"incoming_calls",
-			},
-			["<Leader>go"] = {
-				function()
-					vim.lsp.buf.outgoing_calls()
-				end,
-				"outgoing_calls",
-			},
-			["gi"] = {
-				function()
-					vim.lsp.buf.implementation()
-				end,
-				"implementation",
-			},
-			["<leader>D"] = {
-				function()
-					vim.lsp.buf.type_definition()
-				end,
-				"type_definition",
-			},
-			["gL"] = {
-				function()
-					require("navigator.diagnostics").show_diagnostics()
-				end,
-				"show_diagnostics",
-			},
-			["gG"] = {
-				function()
-					require("navigator.diagnostics").show_buf_diagnostics()
-				end,
-				"show_buf_diagnostics",
-			},
-			["<Leader>dt"] = {
-				function()
-					require("navigator.diagnostics").toggle_diagnostics()
-				end,
-				"toggle_diagnostics",
-			},
-			["]d"] = {
-				function()
-					vim.diagnostic.goto_next()
-				end,
-				"next diagnostics",
-			},
-			["[d"] = {
-				function()
-					vim.diagnostic.goto_prev()
-				end,
-				"prev diagnostics",
-			},
-			["]O"] = {
-				function()
-					vim.diagnostic.set_loclist()
-				end,
-				"diagnostics set loclist",
-			},
-			["]r"] = {
-				function()
-					require("navigator.treesitter").goto_next_usage()
-				end,
-				"goto_next_usage",
-			},
-			["[r"] = {
-				function()
-					require("navigator.treesitter").goto_previous_usage()
-				end,
-				"goto_previous_usage",
-			},
-			["<C-LeftMouse>"] = {
-				function()
-					vim.lsp.buf.definition()
-				end,
-				"definition",
-			},
-			["g<LeftMouse>"] = {
-				function()
-					vim.lsp.buf.implementation()
-				end,
-				"implementation",
-			},
-			["<Leader>k"] = {
-				function()
-					require("navigator.dochighlight").hi_symbol()
-				end,
-				"hi_symbol",
-			},
-			["<leader>wa"] = {
-				function()
-					require("navigator.workleader").add_workleader_folder()
-				end,
-				"add_workleader_folder",
-			},
-			["<Space>wl"] = {
-				function()
-					require("navigator.workspace").list_workspace_folders()
-				end,
-				"list_workspace_folders",
-			},
-			["<Space>la"] = {
-				function()
-					require("navigator.codelens").run_action()
-				end,
-				"run code lens action",
-			},
+
+		{ "n", "K", "lua vim.lsp.buf.hover()", "Hover Docs" },
+		{
+			"n",
+			"gr",
+			"lua require('navigator.reference').async_ref()",
+			"Async Reference",
 		},
-		i = {
-			["<C-k>"] = {
-				function()
-					vim.lsp.buf.signature_help()
-				end,
-				"Signature Help",
-			},
+		{
+			"n",
+			"<leader>gr",
+			"lua require('navigator.reference').reference()",
+			"Reference",
 		},
-		v = {
-			["<leader>ca"] = {
-				function()
-					require("navigator.codeAction").range_code_action()
-				end,
-				"Range Code Actions",
-			},
+		{
+			"n",
+			"g0",
+			"lua require('navigator.symbols').document_symbols()",
+			"Document Symbols",
+		},
+		{
+			"n",
+			"gW",
+			"lua require('navigator.workspace').workspace_symbol_live()",
+			"Workspace symbol live",
+		},
+		-- {"n","<c-]>",
+		-- function()
+		-- require('navigator.definition').definition()
+		-- end,
+		-- "Definition",
+		-- },
+		{
+			"n",
+			"gd",
+			"lua require('navigator.definition').definition()",
+			"Definition",
+		},
+		{ "n", "gD", "lua vim.lsp.buf.declaration()", "declaration" },
+		{
+			"n",
+			"gp",
+			"lua require('navigator.definition').definition_preview()",
+			"Definition Preview",
+		},
+		{
+			"n",
+			"<leader>gt",
+			"lua require('navigator.treesitter').buf_ts()",
+			"Buffer ts",
+		},
+		{
+			"n",
+			"<leader>gT",
+			"lua require('navigator.treesitter').bufs_ts()",
+			"Buffers ts",
+		},
+		{ "n", "<leader>ct", "lua require('navigator.ctags').ctags()", "ctags" },
+		{
+			"n",
+			"<leader>ca",
+			"lua require('navigator.codeAction').code_action()",
+			"Code Action",
+		},
+		{ "n", "<Space>rn", "lua require('navigator.rename').rename()", "rename" },
+		{ "n", "<Leader>gi", "lua vim.lsp.buf.incoming_calls()", "incoming_calls" },
+		{ "n", "<Leader>go", "lua vim.lsp.buf.outgoing_calls()", "outgoing_calls" },
+		{ "n", "gi", "lua vim.lsp.buf.implementation()", "implementation" },
+		{ "n", "<leader>D", "lua vim.lsp.buf.type_definition()", "type_definition" },
+		{
+			"n",
+			"gL",
+			"lua require('navigator.diagnostics').show_diagnostics()",
+			"show_diagnostics",
+		},
+		{
+			"n",
+			"gG",
+			"lua require('navigator.diagnostics').show_buf_diagnostics()",
+			"show_buf_diagnostics",
+		},
+		{
+			"n",
+			"<Leader>dt",
+			"lua require('navigator.diagnostics').toggle_diagnostics()",
+			"toggle_diagnostics",
+		},
+		{ "n", "]d", "lua vim.diagnostic.goto_next()", "next diagnostics" },
+		{ "n", "[d", "lua vim.diagnostic.goto_prev()", "prev diagnostics" },
+		{ "n", "]O", "lua vim.diagnostic.set_loclist()", "diagnostics set loclist" },
+		{
+			"n",
+			"]r",
+			"lua require('navigator.treesitter').goto_next_usage()",
+			"goto_next_usage",
+		},
+		{
+			"n",
+			"[r",
+			"lua require('navigator.treesitter').goto_previous_usage()",
+			"goto_previous_usage",
+		},
+		{ "n", "<C-LeftMouse>", "lua vim.lsp.buf.definition()", "definition" },
+		{ "n", "g<LeftMouse>", "lua vim.lsp.buf.implementation()", "implementation" },
+		{
+			"n",
+			"<Leader>k",
+			"lua require('navigator.dochighlight').hi_symbol()",
+			"hi_symbol",
+		},
+		{
+			"n",
+			"<leader>wa",
+			"lua require('navigator.workleader').add_workleader_folder()",
+			"add_workleader_folder",
+		},
+		{
+			"n",
+			"<Space>wl",
+			"lua require('navigator.workspace').list_workspace_folders()",
+			"list_workspace_folders",
+		},
+		{
+			"n",
+			"<Space>la",
+			"lua require('navigator.codelens').run_action()",
+			"run code lens action",
+		},
+
+		{ "i", "<C-k>", "lua vim.lsp.buf.signature_help()", "Signature Help" },
+
+		{
+			"v",
+			"<leader>ca",
+			"lua require('navigator.codeAction').range_code_action()",
+			"Range Code Actions",
 		},
 	},
 }

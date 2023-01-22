@@ -41,6 +41,12 @@ M.load_plugins = function()
 	end
 end
 
+M.load_plugins_keymap = function(plugin)
+	for _, cmd in ipairs(plugin) do
+		vim.api.nvim_set_keymap(cmd[1], cmd[2], cmd[3], { silent = true, noremap = true, desc = cmd[4] })
+	end
+end
+
 M.load_autocmd = function()
 	return pcall(require, "core.autocmd")
 end

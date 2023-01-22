@@ -12,6 +12,9 @@ return {
 			"nvim-telescope/telescope-media-files.nvim",
 		},
 		cmd = "Telescope",
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").telescope)
+		end,
 		config = function()
 			require("plugins.configs.telescope")
 		end,
@@ -77,6 +80,9 @@ return {
 			{ "ray-x/guihua.lua", run = "cd lua/fzy && make" },
 			{ "neovim/nvim-lspconfig" },
 		},
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").navigator)
+		end,
 		config = function()
 			require("plugins.configs.navigator")
 		end,
@@ -135,6 +141,7 @@ return {
 		ft = "gitcommit",
 		setup = function()
 			require("core.utils").gitsigns()
+			require("core.utils").load_plugins_keymap(require("core.mappings").gitsigns)
 		end,
 		config = function()
 			pcall(require, "plugins.configs.gitsigns")
@@ -162,6 +169,9 @@ return {
 		"akinsho/bufferline.nvim",
 		after = "tokyonight.nvim",
 		requires = { { "kyazdani42/nvim-web-devicons" } },
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").bufferline)
+		end,
 		config = function()
 			pcall(require, "plugins.configs.bufferline")
 		end,
@@ -191,6 +201,9 @@ return {
 			"kyazdani42/nvim-web-devicons",
 		},
 		tag = "nightly",
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").nvimtree)
+		end,
 		config = function()
 			pcall(require, "plugins.configs.nvimtree")
 		end,
@@ -210,6 +223,9 @@ return {
 		"CRAG666/code_runner.nvim",
 		opt = true,
 		cmd = { "RunCode", "RunFile", "RunProject", "RunClose", "CRFiletype", "CRProjects" },
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").code_runner)
+		end,
 		requires = "nvim-lua/plenary.nvim",
 		config = function()
 			pcall(require, "plugins.configs.code_runner")
@@ -219,8 +235,9 @@ return {
 	{
 		"mfussenegger/nvim-dap",
 		opt = true,
-		event = "BufReadPre",
-		setup = function() end,
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").dap)
+		end,
 		config = function()
 			require("plugins.configs.dap").dapconfig()
 		end,
@@ -260,6 +277,9 @@ return {
 	{
 		"nvim-neotest/neotest",
 		opt = true,
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").neotest)
+		end,
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
@@ -311,6 +331,9 @@ return {
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		cmd = { "Trouble", "TroubleClose", "TroubleRefresh", "TroubleToggle" },
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").trouble)
+		end,
 		config = function()
 			require("plugins.configs.others").trouble()
 		end,
@@ -382,7 +405,9 @@ return {
 
 	{
 		"numToStr/Comment.nvim",
-		event = "BufReadPre",
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").comment)
+		end,
 	},
 
 	{
@@ -399,18 +424,12 @@ return {
 	},
 
 	{
-		"anuvyklack/pretty-fold.nvim",
-		opt = true,
-		event = "BufReadPre",
-		config = function()
-			require("plugins.configs.others").pretty_fold()
-		end,
-	},
-
-	{
 		"phaazon/hop.nvim",
 		branch = "v2",
 		cmd = { "HopWord", "HopChar1" },
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").Hop)
+		end,
 		config = function()
 			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 		end,
@@ -420,6 +439,9 @@ return {
 		"akinsho/toggleterm.nvim",
 		cmd = "ToggleTerm",
 		tag = "*",
+		setup = function()
+			require("core.utils").load_plugins_keymap(require("core.mappings").toggleterm)
+		end,
 		config = function()
 			require("plugins.configs.toggleterm")
 		end,
@@ -440,6 +462,15 @@ return {
 		},
 		config = function()
 			require("plugins.configs.chatgpt")
+		end,
+	},
+
+	{
+		"kevinhwang91/nvim-ufo",
+		requires = "kevinhwang91/promise-async",
+		keys = { "zc", "zo", "zM", "zR" },
+		config = function()
+			require("plugins.configs.others").ufo()
 		end,
 	},
 
