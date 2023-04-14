@@ -3,6 +3,7 @@ return {
 		"echasnovski/mini.animate",
 		event = "VeryLazy",
 		opts = function()
+			-- don't use animate when scrolling with the mouse
 			local mouse_scrolled = false
 			for _, scroll in ipairs({ "Up", "Down" }) do
 				local key = "<ScrollWheel" .. scroll .. ">"
@@ -13,7 +14,6 @@ return {
 			end
 
 			local animate = require("mini.animate")
-
 			return {
 				resize = {
 					timing = animate.gen_timing.linear({ duration = 100, unit = "total" }),

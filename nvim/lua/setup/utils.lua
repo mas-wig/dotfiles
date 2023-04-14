@@ -1,14 +1,8 @@
-local M = {}
+local utils = {}
 
-local Util = require("lazy.core.util")
+utils.root_patterns = { ".git", "lua" }
 
-M.root_patterns = { ".git", "package.json" }
-
-function M.has(plugin)
-	return require("lazy.core.config").plugins[plugin] ~= nil
-end
-
-function M.on_attach(on_attach)
+utils.on_attach = function(on_attach)
 	vim.api.nvim_create_autocmd("LspAttach", {
 		callback = function(args)
 			local buffer = args.buf
@@ -18,39 +12,34 @@ function M.on_attach(on_attach)
 	})
 end
 
-function M.toggle(option, silent, values)
-	if values then
-		if vim.opt_local[option]:get() == values[1] then
-			vim.opt_local[option] = values[2]
-		else
-			vim.opt_local[option] = values[1]
-		end
-		return Util.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
-	end
-	vim.opt_local[option] = not vim.opt_local[option]:get()
-	if not silent then
-		if vim.opt_local[option]:get() then
-			Util.info("Enabled " .. option, { title = "Option" })
-		else
-			Util.warn("Disabled " .. option, { title = "Option" })
-		end
+utils.map = function(mode, lhs, rhs, opts)
+	local keys = require("lazy.core.handler").handlers.keys
+	if not keys.active[keys.parse({ lhs, mode = mode }).id] then
+		opts = opts or {}
+		opts.silent = opts.silent ~= false
+		vim.keymap.set(mode, lhs, rhs, opts)
 	end
 end
 
-local enabled = true
-
-function M.toggle_diagnostics()
-	enabled = not enabled
-	if enabled then
-		vim.diagnostic.enable()
-		Util.info("Enabled diagnostics", { title = "Diagnostics" })
-	else
-		vim.diagnostic.disable()
-		Util.warn("Disabled diagnostics", { title = "Diagnostics" })
+utils.dirname = function(pathname)
+	local path_sep = "/"
+	local strip_dir_pat = path_sep .. "([^" .. path_sep .. "]+)$"
+	local strip_sep_pat = path_sep .. "$"
+	if not pathname or #pathname == 0 then
+		return
 	end
+	local result = pathname:gsub(strip_sep_pat, ""):gsub(strip_dir_pat, "")
+	if #result == 0 then
+		return "/"
+	end
+	return result
 end
 
-function M.get_root()
+utils.has = function(plugin)
+	return require("lazy.core.config").plugins[plugin] ~= nil
+end
+
+utils.get_root = function()
 	local path = vim.api.nvim_buf_get_name(0)
 	path = path ~= "" and vim.loop.fs_realpath(path) or nil
 	local roots = {}
@@ -77,10 +66,19 @@ function M.get_root()
 	local root = roots[1]
 	if not root then
 		path = path and vim.fs.dirname(path) or vim.loop.cwd()
-		root = vim.fs.find(M.root_patterns, { path = path, upward = true })[1]
+		root = vim.fs.find(utils.root_patterns, { path = path, upward = true })[1]
 		root = root and vim.fs.dirname(root) or vim.loop.cwd()
 	end
 	return root
 end
 
-return M
+utils.on_very_lazy = function(fn)
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "VeryLazy",
+		callback = function()
+			fn()
+		end,
+	})
+end
+
+return utils

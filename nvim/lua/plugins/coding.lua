@@ -1,101 +1,5 @@
 return {
 	{
-		"hrsh7th/nvim-cmp",
-		version = false,
-		lazy = true,
-		event = "InsertEnter",
-		dependencies = {
-			{ "saadparwaiz1/cmp_luasnip", lazy = true },
-			{ "hrsh7th/cmp-nvim-lua", lazy = true },
-			{ "hrsh7th/cmp-nvim-lsp", lazy = true },
-			{ "hrsh7th/cmp-buffer", lazy = true },
-			{ "hrsh7th/cmp-path", lazy = true },
-			{
-				"tzachar/cmp-tabnine",
-				lazy = true,
-				build = "./install.sh",
-				config = function()
-					require("plugins.coding.cmp").tabnine()
-				end,
-			},
-		},
-		config = function()
-			require("plugins.coding.cmp").cmpconfig()
-		end,
-	},
-
-	{
-		"L3MON4D3/LuaSnip",
-		dependencies = { "rafamadriz/friendly-snippets" },
-		lazy = true,
-		config = function()
-			require("plugins.coding.cmp").luasnip()
-		end,
-	},
-
-	{
-		"nvim-treesitter/nvim-treesitter",
-		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSEnable", "TSDisable", "TSModuleInfo" },
-		lazy = true,
-		version = false,
-		build = ":TSUpdate",
-		event = { "BufReadPost", "BufNewFile" },
-		config = function()
-			require("plugins.coding.treesitter")
-		end,
-	},
-
-	{
-		"jackMort/ChatGPT.nvim",
-		lazy = true,
-		cmd = { "ChatGPT", "ChatGPTActAs" },
-		config = function()
-			require("plugins.coding.chatgpt")
-		end,
-	},
-
-	{
-		"folke/trouble.nvim",
-		lazy = true,
-		cmd = { "Trouble" },
-		keys = require("plugins.coding.trouble").keymaps(),
-		config = function()
-			require("plugins.coding.trouble").setup()
-		end,
-	},
-
-	{
-		"lewis6991/gitsigns.nvim",
-		lazy = true,
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			require("plugins.coding.gitsign")
-		end,
-	},
-
-	{
-		"rest-nvim/rest.nvim",
-		lazy = true,
-		cmd = { "RestNvim", "RestNvimPreview", "RestNvimLast" },
-		ft = "http",
-		config = function()
-			require("plugins.coding.rest")
-		end,
-	},
-
-	{
-		"ldelossa/gh.nvim",
-		lazy = true,
-		dependencies = { "ldelossa/litee.nvim", lazy = true },
-		config = function()
-			require("plugins.coding.gh").setup()
-		end,
-	},
-
-	---- END MAIN ----
-
-	{ "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
-	{
 		"echasnovski/mini.comment",
 		event = "VeryLazy",
 		opts = {
@@ -109,68 +13,85 @@ return {
 			require("mini.comment").setup(opts)
 		end,
 	},
-
+	-- █████╗ █████╗ █████╗ █████╗ █████╗ █████╗
+	-- ╚════╝ ╚════╝ ╚════╝ ╚════╝ ╚════╝ ╚════╝
 	{
 		"echasnovski/mini.ai",
+		-- keys = {
+		--   { "a", mode = { "x", "o" } },
+		--   { "i", mode = { "x", "o" } },
+		-- },
 		event = "VeryLazy",
-		lazy = true,
-		dependencies = {
-			{
-				"nvim-treesitter/nvim-treesitter-textobjects",
-				init = function()
-					require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
-				end,
-			},
-		},
-		config = function()
-			require("plugins.coding.miniai").setup()
-		end,
-	},
-
-	{ "windwp/nvim-ts-autotag", ft = { "html", "jsx", "tsx", "vue" }, lazy = true },
-
-	{ "p00f/nvim-ts-rainbow", event = "BufRead" },
-
-	{
-		"windwp/nvim-autopairs",
-		event = "BufRead",
-		lazy = true,
-		config = function()
-			local _, autopairs = pcall(require, "nvim-autopairs")
-			local _, cmp = pcall(require, "cmp")
-			autopairs.setup({
-				fast_wrap = {
-					chars = { "{", "[", "(", '"', "'" },
-					pattern = [=[[%'%"%>%]%)%}%,]]=],
-					end_key = "$",
-					keys = "qwertyuiopzxcvbnmasdfghjkl",
-					check_comma = true,
-					highlight = "Search",
-					highlight_grey = "Comment",
+		dependencies = { "nvim-treesitter-textobjects" },
+		opts = function()
+			local ai = require("mini.ai")
+			return {
+				n_lines = 500,
+				custom_textobjects = {
+					o = ai.gen_spec.treesitter({
+						a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+						i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+					}, {}),
+					f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
+					c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
+					p = ai.gen_spec.treesitter({ a = "@parameter.outer", i = "@parameter.inner" }, {}),
 				},
-				disable_filetype = { "TelescopePrompt", "guihua", "guihua_rust", "clap_input" },
-			})
-			local _, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
-			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			}
+		end,
+		config = function(_, opts)
+			require("mini.ai").setup(opts)
+			if require("setup.utils").has("which-key.nvim") then
+				local i = {
+					[" "] = "Whitespace",
+					['"'] = 'Balanced "',
+					["'"] = "Balanced '",
+					["`"] = "Balanced `",
+					["("] = "Balanced (",
+					[")"] = "Balanced ) including white-space",
+					[">"] = "Balanced > including white-space",
+					["<lt>"] = "Balanced <",
+					["]"] = "Balanced ] including white-space",
+					["["] = "Balanced [",
+					["}"] = "Balanced } including white-space",
+					["{"] = "Balanced {",
+					["?"] = "User Prompt",
+					_ = "Underscore",
+					a = "Argument",
+					b = "Balanced ), ], }",
+					c = "Class",
+					f = "Function",
+					o = "Block, conditional, loop",
+					q = "Quote `, \", '",
+					t = "Tag",
+					p = "Parameter",
+				}
+				local a = vim.deepcopy(i)
+				for k, v in pairs(a) do
+					a[k] = v:gsub(" including.*", "")
+				end
+
+				local ic = vim.deepcopy(i)
+				local ac = vim.deepcopy(a)
+				for key, name in pairs({ n = "Next", l = "Last" }) do
+					i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
+					a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
+				end
+				require("which-key").register({
+					mode = { "o", "x" },
+					i = i,
+					a = a,
+				})
+			end
 		end,
 	},
 
-	{
-		"chrisbra/csv.vim",
-		ft = "csv",
-		config = function()
-			vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-				pattern = { "*.csv", "*.dat" },
-				command = "setfiletype csv",
-				group = vim.api.nvim_create_augroup("filetypedetect", { clear = true }),
-			})
-		end,
-	},
+	-- █████╗ █████╗ █████╗ █████╗ █████╗ █████╗
+	-- ╚════╝ ╚════╝ ╚════╝ ╚════╝ ╚════╝ ╚════╝
 
 	{
 		"tpope/vim-dadbod",
 		lazy = true,
-		dependencies = { "kristijanhusak/vim-dadbod-ui" },
+		dependencies = { "kristijanhusak/vim-dadbod-ui", lazy = true },
 		cmd = {
 			"DBUI",
 			"DBUIAddConnection",
@@ -179,5 +100,72 @@ return {
 			"DBUIToggle",
 			"DBUIRenameBuffer",
 		},
+	},
+	-- █████╗ █████╗ █████╗ █████╗ █████╗ █████╗
+	-- ╚════╝ ╚════╝ ╚════╝ ╚════╝ ╚════╝ ╚════╝
+	{
+		"ray-x/web-tools.nvim",
+		cmd = {
+			"BrowserSync",
+			"BrowserOpen",
+			"BrowserPreview",
+			"BrowserRestart",
+			"Browserstop",
+			"TagRename",
+			"HurlRun",
+		},
+		config = function()
+			return require("web-tools").setup({
+				keymaps = {
+					rename = nil,
+					repeat_rename = ".",
+				},
+				hurl = {
+					show_headers = false,
+					floating = false,
+					formatters = {
+						json = { "jq" },
+						html = { "prettier", "--parser", "html" },
+					},
+				},
+			})
+		end,
+	},
+
+	-- █████╗ █████╗ █████╗ █████╗ █████╗ █████╗
+	-- ╚════╝ ╚════╝ ╚════╝ ╚════╝ ╚════╝ ╚════╝
+	{
+		"echasnovski/mini.surround",
+		keys = function(_, keys)
+			local plugin = require("lazy.core.config").spec.plugins["mini.surround"]
+			local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+			local mappings = {
+				{ opts.mappings.add, desc = "Add surrounding", mode = { "n", "v" } },
+				{ opts.mappings.delete, desc = "Delete surrounding" },
+				{ opts.mappings.find, desc = "Find right surrounding" },
+				{ opts.mappings.find_left, desc = "Find left surrounding" },
+				{ opts.mappings.highlight, desc = "Highlight surrounding" },
+				{ opts.mappings.replace, desc = "Replace surrounding" },
+				{ opts.mappings.update_n_lines, desc = "Update `MiniSurround.config.n_lines`" },
+			}
+			mappings = vim.tbl_filter(function(m)
+				return m[1] and #m[1] > 0
+			end, mappings)
+			return vim.list_extend(mappings, keys)
+		end,
+		opts = {
+			mappings = {
+				add = "gza",
+				delete = "gzd",
+				find = "gzf",
+				find_left = "gzF",
+				highlight = "gzh",
+				replace = "gzr",
+				update_n_lines = "gzn",
+			},
+		},
+		config = function(_, opts)
+			require("mini.surround").setup(opts)
+		end,
 	},
 }

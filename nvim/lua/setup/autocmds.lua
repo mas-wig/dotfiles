@@ -1,101 +1,178 @@
-local autocmd = vim.api.nvim_create_autocmd
+return {
+	{
+		name = "FormatOpt",
+		{
+			{ "BufEnter" },
+			function()
+				vim.opt.formatoptions = vim.opt.formatoptions - { "c", "r", "o" }
+			end,
+			opts = { pattern = { "*" } },
+		},
+	},
 
-local function l_augroup(name)
-    return vim.api.nvim_create_augroup("lazyvim_" .. name, {clear = true})
-end
+	{
+		name = "GoFormat",
+		{
+			{ "BufWritePre" },
+			function()
+				require("go.format").goimport()
+			end,
+			opts = { pattern = { "*.go" } },
+		},
+	},
 
-local function augroup(name)
-    return vim.api.nvim_create_augroup(name, {clear = true})
-end
+	-- {
+	-- 	name = "ConcealAttributes",
+	-- 	{
+	-- 		{ "BufEnter", "BufWritePost", "TextChanged", "InsertLeave" },
+	-- 		function()
+	-- 			local bufnr = vim.api.nvim_get_current_buf()
+	-- 			require("setup.functions").ConcealHTML(bufnr)
+	-- 		end,
+	-- 		opts = {
+	-- 			pattern = { "*.html" },
+	-- 		},
+	-- 	},
+	-- },
 
--- Reload file
-autocmd({"FocusGained", "TermClose", "TermLeave"}, {
-    group = l_augroup("checktime"),
-    command = "checktime",
-})
+	{
+		name = "PersistedHooks",
+		{
+			"User",
+			function(session)
+				require("persisted").save()
 
--- Highlight on yank
-autocmd("TextYankPost", {
-    group = l_augroup("highlight_yank"),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})
+				-- Delete all of the open buffers
+				vim.api.nvim_input("<ESC>:%bd!<CR>")
 
--- resize splits if window got resized
-autocmd({"VimResized"}, {
-    group = l_augroup("resize_splits"),
-    callback = function()
-        vim.cmd("tabdo wincmd =")
-    end,
-})
+				-- Don't start saving the session yet
+				require("persisted").stop()
+			end,
+			opts = { pattern = "PersistedTelescopeLoadPre" },
+		},
+	},
 
--- go to last loc when opening a buffer
-autocmd("BufReadPost", {
-    group = l_augroup("last_loc"),
-    callback = function()
-        local mark = vim.api.nvim_buf_get_mark(0, '"')
-        local lcount = vim.api.nvim_buf_line_count(0)
-        if mark[1] > 0 and mark[1] <= lcount then
-            pcall(vim.api.nvim_win_set_cursor, 0, mark)
-        end
-    end,
-})
+	{
+		name = "ReturnToLastEditingPosition",
+		{
+			"BufReadPost",
+			function()
+				if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line("$") then
+					vim.fn.setpos(".", vim.fn.getpos("'\""))
+					vim.api.nvim_feedkeys("zz", "n", true)
+					vim.cmd("silent! foldopen")
+				end
+			end,
+		},
+	},
+	{
+		name = "FiletypeOptions",
+		{
+			"FileType",
+			":setlocal shiftwidth=4 tabstop=4",
+			opts = {
+				pattern = { "ledger" },
+			},
+		},
+		{
+			"FileType",
+			":setlocal wrap linebreak",
+			opts = { pattern = "markdown" },
+		},
+		{
+			"FileType",
+			":setlocal showtabline=0",
+			opts = { pattern = "alpha" },
+		},
+	},
+	{
+		name = "QuickfixFormatting",
+		{
+			{ "BufEnter", "WinEnter" },
+			":if &buftype == 'quickfix' | setlocal nocursorline | setlocal number | endif",
+			opts = {
+				pattern = { "*" },
+			},
+		},
+	},
+	{
+		name = "ChangeMappingsInTerminal",
+		{
+			"TermOpen",
+			function()
+				if vim.bo.filetype == "" or vim.bo.filetype == "toggleterm" then
+					local opts = { silent = false, buffer = 0 }
+					vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
+					vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
+				end
+			end,
+			opts = {
+				pattern = "term://*",
+			},
+		},
+	},
+	{
+		name = "RemoveWhitespaceOnSave",
+		{
+			{ "BufWritePre" },
+			[[%s/\s\+$//e]],
+			opts = {
+				pattern = { "*" },
+			},
+		},
+	},
+	-- Highlight text when yanked
+	{
+		name = "HighlightYankedText",
+		{
+			"TextYankPost",
+			function()
+				vim.highlight.on_yank()
+			end,
+			opts = { pattern = "*" },
+		},
+	},
+	{
+		name = "Telescope",
+		{
+			"User",
+			":setlocal wrap",
+			opts = { pattern = "TelescopePreviewerLoaded" },
+		},
+	},
+	{
+		name = "SaveFold",
+		{
+			"BufWinLeave",
+			":mkview",
+			opts = { pattern = "*.*" },
+		},
+		{
+			"BufWinEnter",
+			":silent! loadview",
+			opts = { pattern = "*.*" },
+		},
+	},
 
--- close some filetypes with <q>
-autocmd("FileType", {
-    group = l_augroup("close_with_q"),
-    pattern = {
-        "qf",
-        "help",
-        "man",
-        "notify",
-        "lspinfo",
-        "spectre_panel",
-        "startuptime",
-        "tsplayground",
-        "PlenaryTestPopup",
-    },
-    callback = function(event)
-        vim.bo[event.buf].buflisted = false
-        vim.keymap.set("n", "q", "<cmd>close<cr>", {buffer = event.buf, silent = true})
-    end,
-})
+	{
+		name = "LuaLineRerfesh",
+		{
+			"User",
+			function()
+				require("lualine").refresh()
+			end,
+			opts = {
+				pattern = "LspProgressStatusUpdated",
+			},
+		},
+	},
 
--- wrap and check for spell in text filetypes
-autocmd("FileType", {
-    group = l_augroup("wrap_spell"),
-    pattern = {"gitcommit", "markdown"},
-    callback = function()
-        vim.opt_local.wrap = true
-        vim.opt_local.spell = true
-    end,
-})
-
--- exclude qf buffer
-autocmd("FileType", {
-    pattern = "qf",
-    callback = function()
-        vim.opt_local.buflisted = false
-    end,
-})
-
--- Format on save
-autocmd("BufWritePost", {
-    pattern = "*",
-    command = "FormatWrite",
-    group = augroup("FormatAutogroup"),
-})
-
--- Remember folding
-autocmd("BufWinLeave", {
-    pattern = "*.*",
-    group = augroup("remember_folds"),
-    command = "mkview",
-})
-
-autocmd("BufWinLeave", {
-    pattern = "*.*",
-    group = augroup("remember_folds"),
-    command = "silent! loadview",
-})
+	{
+		name = "FormatAutogroup",
+		{
+			"BufWritePost",
+			":FormatWrite",
+			opts = { pattern = "*" },
+		},
+	},
+}
